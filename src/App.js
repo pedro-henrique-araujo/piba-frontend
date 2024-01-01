@@ -1,11 +1,12 @@
-import { ThemeProvider, BaseStyles } from "@primer/react";
-import SearchSelect from "./components/SearchSelect";
+import { ThemeProvider, BaseStyles, SelectPanel } from "@primer/react";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
 function App() {
   return (
     <ThemeProvider>
       <BaseStyles>
-        <SearchSelect />
+        <SelectPanel />
       </BaseStyles>
     </ThemeProvider>
   );

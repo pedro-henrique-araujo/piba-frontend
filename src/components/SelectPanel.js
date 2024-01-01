@@ -1,7 +1,7 @@
 import { SelectPanel, Button } from "@primer/react";
 import { useState } from "react";
 
-function SearchSelect() {
+function SelectPanel() {
   const items = [{ text: "test" }, { text: "test 2" }];
   const [selected, setSelected] = useState();
   const [filter, setFilter] = useState("");
@@ -38,4 +38,4 @@ function SearchSelect() {
   );
 }
 
-export default SearchSelect;
+export default SelectPanel;
