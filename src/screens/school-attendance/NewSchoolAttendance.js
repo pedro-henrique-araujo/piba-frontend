@@ -26,15 +26,30 @@ function NewSchoolAttendance() {
     );
   }
 
-  useEffect(() => {
-    loadMemberOptions();
-  }, []);
-
   const [selectedMember, setSelectedMember] = useState();
   const [isPresent, setIsPresent] = useState("true");
   const [excuse, setExcuse] = useState();
   const [memberOptions, setMemberOptions] = useState([]);
+  const [isInvalid, setIsInvalid] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    loadMemberOptions();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedMember) {
+      setIsInvalid(true);
+      return;
+    }
+
+    if (isPresent == "false" && !excuse) {
+      setIsInvalid(true);
+      return;
+    }
+
+    setIsInvalid(false);
+  }, [selectedMember, isPresent, excuse]);
 
   const isPresentOptions = [
     {
@@ -50,7 +65,9 @@ function NewSchoolAttendance() {
   return (
     <form>
       <PibSelectPanel
-        label="Nome"
+        label="Membro"
+        title="Selecionar Membro"
+        placeholder="Pesquisar..."
         items={memberOptions}
         selected={selectedMember}
         onSelectedChange={setSelectedMember}
@@ -61,8 +78,15 @@ function NewSchoolAttendance() {
         onChange={setIsPresent}
         value={isPresent}
       />
-      <PibTextarea label="Justificativa" value={excuse} onChange={setExcuse} />
-      <PibPrimaryButton onClick={submit}>Enviar</PibPrimaryButton>
+      <PibTextarea
+        label="Justificativa"
+        placeholder="Insira uma justificativa..."
+        value={excuse}
+        onChange={setExcuse}
+      />
+      <PibPrimaryButton onClick={submit} disabled={isInvalid}>
+        Enviar
+      </PibPrimaryButton>
     </form>
   );
 }

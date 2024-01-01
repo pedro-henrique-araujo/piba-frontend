@@ -1,7 +1,14 @@
 import { SelectPanel, Button, FormControl } from "@primer/react";
 import { useState } from "react";
 
-function PibSelectPanel({ items, selected, onSelectedChange, label }) {
+function PibSelectPanel({
+  items,
+  selected,
+  onSelectedChange,
+  label,
+  title,
+  placeholder,
+}) {
   const [filter, setFilter] = useState("");
   const filteredItems = (items || []).filter((item) =>
     item.text.toLowerCase().startsWith(filter.toLowerCase())
@@ -11,7 +18,7 @@ function PibSelectPanel({ items, selected, onSelectedChange, label }) {
     <FormControl>
       <FormControl.Label>{label}</FormControl.Label>
       <SelectPanel
-        title="Selecionar membro"
+        title={title}
         renderAnchor={({
           children,
           "aria-labelledby": ariaLabelledBy,
@@ -22,10 +29,10 @@ function PibSelectPanel({ items, selected, onSelectedChange, label }) {
             {...anchorProps}
             aria-haspopup="dialog"
           >
-            {children ?? "Selecionar membro"}
+            {children ?? title}
           </Button>
         )}
-        placeholderText="Pesquisar..."
+        placeholderText={placeholder}
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
