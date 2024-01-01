@@ -78,12 +78,14 @@ function NewSchoolAttendance() {
         onChange={setIsPresent}
         value={isPresent}
       />
-      <PibTextarea
-        label="Justificativa"
-        placeholder="Insira uma justificativa..."
-        value={excuse}
-        onChange={setExcuse}
-      />
+      {isPresent == "false" && (
+        <PibTextarea
+          label="Justificativa"
+          placeholder="Insira uma justificativa..."
+          value={excuse}
+          onChange={setExcuse}
+        />
+      )}
       <PibPrimaryButton onClick={submit} disabled={isInvalid}>
         Enviar
       </PibPrimaryButton>
