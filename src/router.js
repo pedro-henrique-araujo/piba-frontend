@@ -1,19 +1,17 @@
-import AttendanceSuccessfullyCreated from "./screens/attendance/AttendanceSuccessfullyCreated";
+import NewSchoolAttendance from "./screens/school-attendance/NewSchoolAttendance";
+import SchoolAttendanceSuccessfullyCreated from "./screens/school-attendance/SchoolAttendanceSuccessfullyCreated";
 
 const { createBrowserRouter } = require("react-router-dom");
-const {
-  default: NewAttendance,
-} = require("./screens/attendance/NewAttendance");
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <NewAttendance />,
+    element: <NewSchoolAttendance />,
   },
 
   {
     path: "/success",
-    element: <AttendanceSuccessfullyCreated />,
+    element: <SchoolAttendanceSuccessfullyCreated />,
   },
 ]);
 

@@ -1,16 +1,15 @@
-import { SelectPanel, Button } from "@primer/react";
+import { SelectPanel, Button, FormControl } from "@primer/react";
 import { useState } from "react";
 
-function SelectPanel() {
-  const items = [{ text: "test" }, { text: "test 2" }];
-  const [selected, setSelected] = useState();
+function PibSelectPanel({ items, selected, onSelectedChange, label }) {
   const [filter, setFilter] = useState("");
-  const filteredItems = items.filter((item) =>
+  const filteredItems = (items || []).filter((item) =>
     item.text.toLowerCase().startsWith(filter.toLowerCase())
   );
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <FormControl>
+      <FormControl.Label>{label}</FormControl.Label>
       <SelectPanel
         title="Selecionar membro"
         renderAnchor={({
@@ -31,11 +30,11 @@ function SelectPanel() {
         onOpenChange={setOpen}
         items={filteredItems}
         selected={selected}
-        onSelectedChange={setSelected}
+        onSelectedChange={onSelectedChange}
         onFilterChange={setFilter}
       />
-    </>
+    </FormControl>
   );
 }
 
-export default SelectPanel;
+export default PibSelectPanel;
