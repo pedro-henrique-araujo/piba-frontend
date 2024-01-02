@@ -19,10 +19,12 @@ function NewSchoolAttendance() {
   async function loadMemberOptions() {
     const { data } = await api.options("member");
     setMemberOptions(
-      data.map(({ id, name }) => ({
-        id,
-        text: name,
-      }))
+      data
+        .map(({ id, name }) => ({
+          id,
+          text: name,
+        }))
+        .sort((a, b) => a.text.localeCompare(b.text))
     );
   }
 
