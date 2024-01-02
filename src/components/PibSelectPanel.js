@@ -41,7 +41,9 @@ function PibSelectPanel({
           selected={selected}
           onSelectedChange={onSelectedChange}
           onFilterChange={setFilter}
-          overlayProps={{ width: "medium" }}
+          overlayProps={{
+            width: "small",
+          }}
         />
       </FormControl>
     </div>
