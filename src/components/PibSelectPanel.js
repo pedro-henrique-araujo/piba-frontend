@@ -9,10 +9,18 @@ function PibSelectPanel({
   title,
   placeholder,
 }) {
+  function removeAccents(value) {
+    return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function searchItem(item) {
+    return removeAccents(item.text)
+      .toLowerCase()
+      .includes(removeAccents(filter).toLowerCase());
+  }
+
   const [filter, setFilter] = useState("");
-  const filteredItems = (items || []).filter((item) =>
-    item.text.toLowerCase().startsWith(filter.toLowerCase())
-  );
+  const filteredItems = (items || []).filter(searchItem);
   const [open, setOpen] = useState(false);
   return (
     <div className="my-8">
