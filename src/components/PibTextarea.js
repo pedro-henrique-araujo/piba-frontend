@@ -2,7 +2,7 @@ import { FormControl, Textarea } from "@primer/react";
 
 function PibTextarea({ label, value, onChange, placeholder }) {
   return (
-    <div className="my-5">
+    <div className="my-8">
       <FormControl>
         <FormControl.Label>{label}</FormControl.Label>
         <Textarea

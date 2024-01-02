@@ -2,7 +2,7 @@ import { RadioGroup, FormControl, Radio } from "@primer/react";
 
 function PibRadioGroup({ onChange, value, label, options }) {
   return (
-    <div className="my-5">
+    <div className="my-8">
       <RadioGroup onChange={onChange}>
         <RadioGroup.Label>{label}</RadioGroup.Label>
         {options.map((o) => (

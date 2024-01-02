@@ -15,7 +15,7 @@ function PibSelectPanel({
   );
   const [open, setOpen] = useState(false);
   return (
-    <div className="my-5">
+    <div className="my-8">
       <FormControl>
         <FormControl.Label>{label}</FormControl.Label>
         <SelectPanel
@@ -26,6 +26,7 @@ function PibSelectPanel({
             ...anchorProps
           }) => (
             <Button
+              sx={{ width: "100%" }}
               aria-labelledby={` ${ariaLabelledBy}`}
               {...anchorProps}
               aria-haspopup="dialog"
@@ -40,6 +41,7 @@ function PibSelectPanel({
           selected={selected}
           onSelectedChange={onSelectedChange}
           onFilterChange={setFilter}
+          overlayProps={{ width: "medium" }}
         />
       </FormControl>
     </div>
