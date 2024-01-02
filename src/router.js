@@ -8,9 +8,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <NewSchoolAttendance />,
   },
+  {
+    path: "/frequencia/eb",
+    element: <NewSchoolAttendance />,
+  },
 
   {
-    path: "/success",
+    path: "/frequencia/eb/sucesso",
     element: <SchoolAttendanceSuccessfullyCreated />,
   },
 ]);

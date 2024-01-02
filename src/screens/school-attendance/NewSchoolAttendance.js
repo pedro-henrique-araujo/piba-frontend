@@ -13,7 +13,7 @@ function NewSchoolAttendance() {
       isPresent: isPresent == "true",
       excuse: excuse,
     });
-    navigate("success");
+    navigate("/frequencia/eb/sucesso");
   }
 
   async function loadMemberOptions() {
