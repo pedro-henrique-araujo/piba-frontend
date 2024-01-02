@@ -65,6 +65,7 @@ function NewSchoolAttendance() {
   return (
     <form>
       <PibSelectPanel
+        className="mt-10"
         label="Membro"
         title="Selecionar Membro"
         placeholder="Pesquisar..."
