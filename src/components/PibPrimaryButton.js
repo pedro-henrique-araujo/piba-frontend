@@ -1,10 +1,17 @@
 import { Button } from "@primer/react";
 
-function PibPrimaryButton({ children, onClick }) {
+function PibPrimaryButton({ children, onClick, disabled }) {
   return (
-    <Button variant="primary" onClick={onClick}>
-      {children}
-    </Button>
+    <div className="my-8">
+      <Button
+        variant="primary"
+        onClick={onClick}
+        disabled={disabled}
+        sx={{ width: "100%" }}
+      >
+        {children}
+      </Button>
+    </div>
   );
 }
 

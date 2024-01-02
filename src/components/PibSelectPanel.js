@@ -1,39 +1,60 @@
 import { SelectPanel, Button, FormControl } from "@primer/react";
 import { useState } from "react";
 
-function PibSelectPanel({ items, selected, onSelectedChange, label }) {
+function PibSelectPanel({
+  items,
+  selected,
+  onSelectedChange,
+  label,
+  title,
+  placeholder,
+}) {
+  function removeAccents(value) {
+    return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function searchItem(item) {
+    return removeAccents(item.text)
+      .toLowerCase()
+      .includes(removeAccents(filter).toLowerCase());
+  }
+
   const [filter, setFilter] = useState("");
-  const filteredItems = (items || []).filter((item) =>
-    item.text.toLowerCase().startsWith(filter.toLowerCase())
-  );
+  const filteredItems = (items || []).filter(searchItem);
   const [open, setOpen] = useState(false);
   return (
-    <FormControl>
-      <FormControl.Label>{label}</FormControl.Label>
-      <SelectPanel
-        title="Selecionar membro"
-        renderAnchor={({
-          children,
-          "aria-labelledby": ariaLabelledBy,
-          ...anchorProps
-        }) => (
-          <Button
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
-            {children ?? "Selecionar membro"}
-          </Button>
-        )}
-        placeholderText="Pesquisar..."
-        open={open}
-        onOpenChange={setOpen}
-        items={filteredItems}
-        selected={selected}
-        onSelectedChange={onSelectedChange}
-        onFilterChange={setFilter}
-      />
-    </FormControl>
+    <div className="my-8">
+      <FormControl>
+        <FormControl.Label>{label}</FormControl.Label>
+        <SelectPanel
+          title={title}
+          renderAnchor={({
+            children,
+            "aria-labelledby": ariaLabelledBy,
+            ...anchorProps
+          }) => (
+            <Button
+              sx={{ width: "100%" }}
+              aria-labelledby={` ${ariaLabelledBy}`}
+              {...anchorProps}
+              aria-haspopup="dialog"
+            >
+              {children ?? title}
+            </Button>
+          )}
+          placeholderText={placeholder}
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          onFilterChange={setFilter}
+          overlayProps={{
+            width: "small",
+          }}
+        />
+      </FormControl>
+    </div>
   );
 }
 
