@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 
 function NewSchoolAttendance() {
   async function submit() {
+    setIsSending(true);
     await api.post("school-attendance", {
       memberId: selectedMember.id,
       isPresent: isPresent == "true",
@@ -33,6 +34,7 @@ function NewSchoolAttendance() {
   const [excuse, setExcuse] = useState();
   const [memberOptions, setMemberOptions] = useState([]);
   const [isInvalid, setIsInvalid] = useState(true);
+  const [isSending, setIsSending] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,8 +92,8 @@ function NewSchoolAttendance() {
             onChange={setExcuse}
           />
         )}
-        <PibPrimaryButton onClick={submit} disabled={isInvalid}>
-          Enviar
+        <PibPrimaryButton onClick={submit} disabled={isInvalid || isSending}>
+          {isSending ? "Enviando..." : "Enviar"}
         </PibPrimaryButton>
       </form>
     </div>
