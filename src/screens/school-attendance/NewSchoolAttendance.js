@@ -63,33 +63,36 @@ function NewSchoolAttendance() {
   ];
 
   return (
-    <form className="mx-auto p-5 max-w-xl">
-      <PibSelectPanel
-        label="Membro"
-        title="Selecionar Membro"
-        placeholder="Pesquisar..."
-        items={memberOptions}
-        selected={selectedMember}
-        onSelectedChange={setSelectedMember}
-      />
-      <PibRadioGroup
-        label="Presente?"
-        options={isPresentOptions}
-        onChange={setIsPresent}
-        value={isPresent}
-      />
-      {isPresent == "false" && (
-        <PibTextarea
-          label="Justificativa"
-          placeholder="Insira uma justificativa..."
-          value={excuse}
-          onChange={setExcuse}
+    <div className="mx-auto p-5 max-w-xl">
+      <h1 className="font-bold text-2xl">Indicar Frequência</h1>
+      <form>
+        <PibSelectPanel
+          label="Nome do membro"
+          title="Selecionar membro"
+          placeholder="Pesquisar..."
+          items={memberOptions}
+          selected={selectedMember}
+          onSelectedChange={setSelectedMember}
         />
-      )}
-      <PibPrimaryButton onClick={submit} disabled={isInvalid}>
-        Enviar
-      </PibPrimaryButton>
-    </form>
+        <PibRadioGroup
+          label="Presente?"
+          options={isPresentOptions}
+          onChange={setIsPresent}
+          value={isPresent}
+        />
+        {isPresent == "false" && (
+          <PibTextarea
+            label="Justificativa"
+            placeholder="Insira uma justificativa..."
+            value={excuse}
+            onChange={setExcuse}
+          />
+        )}
+        <PibPrimaryButton onClick={submit} disabled={isInvalid}>
+          Enviar
+        </PibPrimaryButton>
+      </form>
+    </div>
   );
 }
 
