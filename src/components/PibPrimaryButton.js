@@ -1,16 +1,13 @@
-import { Button } from "@primer/react";
-
 function PibPrimaryButton({ children, onClick, disabled }) {
   return (
     <div className="my-8">
-      <Button
-        variant="primary"
+      <button
+        className="cursor-pointer w-full bg-primary text-white font-semibold rounded-lg h-10 disabled:opacity-50"
         onClick={onClick}
         disabled={disabled}
-        sx={{ width: "100%" }}
       >
         {children}
-      </Button>
+      </button>
     </div>
   );
 }

@@ -5,13 +5,18 @@ import PibTextarea from "../../components/PibTextarea";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { useNavigate } from "react-router";
+import PibLocationIcon from "../../components/PibLocationIcon";
 
 function NewSchoolAttendance() {
   async function submit() {
+    setIsSending(true);
+    const { latitude, longitude } = userPosition?.coords || {};
     await api.post("school-attendance", {
       memberId: selectedMember.id,
       isPresent: isPresent == "true",
       excuse: excuse,
+      latitude: latitude,
+      longitude: longitude,
     });
     navigate("/frequencia/eb/sucesso");
   }
@@ -28,15 +33,23 @@ function NewSchoolAttendance() {
     );
   }
 
+  function loadUserLocation() {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(setUserPosition);
+  }
+
   const [selectedMember, setSelectedMember] = useState();
   const [isPresent, setIsPresent] = useState("true");
   const [excuse, setExcuse] = useState();
   const [memberOptions, setMemberOptions] = useState([]);
   const [isInvalid, setIsInvalid] = useState(true);
+  const [isSending, setIsSending] = useState(false);
+  const [userPosition, setUserPosition] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     loadMemberOptions();
+    loadUserLocation();
   }, []);
 
   useEffect(() => {
@@ -90,8 +103,13 @@ function NewSchoolAttendance() {
             onChange={setExcuse}
           />
         )}
-        <PibPrimaryButton onClick={submit} disabled={isInvalid}>
-          Enviar
+
+        <div className="flex gap-2 items-center text-sm text-gray-500">
+          <PibLocationIcon />
+          <span>Ative a localização</span>
+        </div>
+        <PibPrimaryButton onClick={submit} disabled={isInvalid || isSending}>
+          {isSending ? "Enviando..." : "Enviar"}
         </PibPrimaryButton>
       </form>
     </div>

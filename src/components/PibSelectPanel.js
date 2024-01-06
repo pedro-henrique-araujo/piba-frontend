@@ -34,7 +34,7 @@ function PibSelectPanel({
             ...anchorProps
           }) => (
             <Button
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", height: "40px" }}
               aria-labelledby={` ${ariaLabelledBy}`}
               {...anchorProps}
               aria-haspopup="dialog"
