@@ -9,10 +9,13 @@ import { useNavigate } from "react-router";
 function NewSchoolAttendance() {
   async function submit() {
     setIsSending(true);
+    const { latitude, longitude } = userPosition.coords;
     await api.post("school-attendance", {
       memberId: selectedMember.id,
       isPresent: isPresent == "true",
       excuse: excuse,
+      latitude: latitude,
+      longitude: longitude,
     });
     navigate("/frequencia/eb/sucesso");
   }
@@ -29,16 +32,23 @@ function NewSchoolAttendance() {
     );
   }
 
+  async function loadUserLocation() {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(setUserPosition);
+  }
+
   const [selectedMember, setSelectedMember] = useState();
   const [isPresent, setIsPresent] = useState("true");
   const [excuse, setExcuse] = useState();
   const [memberOptions, setMemberOptions] = useState([]);
   const [isInvalid, setIsInvalid] = useState(true);
   const [isSending, setIsSending] = useState(false);
+  const [userPosition, setUserPosition] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     loadMemberOptions();
+    loadUserLocation();
   }, []);
 
   useEffect(() => {
