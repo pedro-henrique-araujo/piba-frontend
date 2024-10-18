@@ -1,9 +1,11 @@
+import { useAuth } from "../AuthProvider";
 import Login from "../screens/login/Login";
 import NewSchoolAttendance from "../screens/school-attendance/NewSchoolAttendance";
 import SchoolAttendanceSuccessfullyCreated from "../screens/school-attendance/SchoolAttendanceSuccessfullyCreated";
 import ListSessionAttendance from '../screens/session-attendance/ListSessionAttendance';
+import NewSessionAttendance from "../screens/session-attendance/NewSessionAttendance";
+import { createBrowserRouter, redirect } from "react-router-dom";
 
-const { createBrowserRouter, redirect } = require("react-router-dom");
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/frequencia/sessao",
         element: <ListSessionAttendance />
+      },
+      {
+        path: "frequencia/sessao/nova", 
+        element: <NewSessionAttendance/>
       }
 
     ]
