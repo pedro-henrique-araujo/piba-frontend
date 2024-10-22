@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "./frequencia/eb",
   "display": "standalone",
   "theme_color": "#C12A24",
   "background_color": "#ffffff"
