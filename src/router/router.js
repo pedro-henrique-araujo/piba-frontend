@@ -2,6 +2,7 @@ import { useAuth } from "../AuthProvider";
 import Login from "../screens/login/Login";
 import NewSchoolAttendance from "../screens/school-attendance/NewSchoolAttendance";
 import SchoolAttendanceSuccessfullyCreated from "../screens/school-attendance/SchoolAttendanceSuccessfullyCreated";
+import { EditSessionAttendance } from "../screens/session-attendance/EditSessionAttendance";
 import ListSessionAttendance from '../screens/session-attendance/ListSessionAttendance';
 import NewSessionAttendance from "../screens/session-attendance/NewSessionAttendance";
 import { createBrowserRouter, redirect } from "react-router-dom";
@@ -33,10 +34,13 @@ const router = createBrowserRouter([
         element: <ListSessionAttendance />
       },
       {
-        path: "frequencia/sessao/nova", 
+        path: "/frequencia/sessao/nova", 
         element: <NewSessionAttendance/>
+      },
+      {
+        path: "/frequencia/sessao/editar/:id",
+        element: <EditSessionAttendance/>
       }
-
     ]
   }
 ]);
