@@ -3,9 +3,9 @@ import PibSelectPanel from "../../components/PibSelectPanel";
 import PibRadioGroup from "../../components/PibRadioGroup";
 import PibTextarea from "../../components/PibTextarea";
 import { useEffect, useState } from "react";
-import api from "../../services/api";
 import { useNavigate } from "react-router";
 import PibLocationIcon from "../../components/PibLocationIcon";
+import { useApi } from "../../shared/useApi";
 
 function NewSchoolAttendance() {
   async function submit() {
@@ -46,6 +46,7 @@ function NewSchoolAttendance() {
   const [isSending, setIsSending] = useState(false);
   const [userPosition, setUserPosition] = useState();
   const navigate = useNavigate();
+  const api = useApi();
 
   useEffect(() => {
     loadMemberOptions();
