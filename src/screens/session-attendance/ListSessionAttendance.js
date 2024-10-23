@@ -6,10 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 function ListSessionAttendance() {
   async function loadSessionAttendances() {
-    const {
-      data: { records },
-    } = await api.get("/session-attendance");
-    setSessionAttedances(records);
+    try {
+      const {
+        data: { records },
+      } = await api.get("/session-attendance");
+      setSessionAttedances(records);
+    } catch {}
   }
 
   useEffect(() => {
