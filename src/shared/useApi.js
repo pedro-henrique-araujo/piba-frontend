@@ -1,21 +1,38 @@
-import axios from 'axios';
-import { useMemo } from 'react';
-import { useAuth } from '../AuthProvider';
-import environment from '../environment';
+import axios from "axios";
+import { useMemo } from "react";
+import { useAuth } from "../AuthProvider";
+import environment from "../environment";
+import { useNavigate } from "react-router-dom";
 
 export function useApi() {
-    const { token } = useAuth();
+  function addUnauthorizedInterceptor(axiosObject) {
+    axiosObject.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        console.log(error.response.status);
+        if (error.response.status != 403) return;
+        navigate("/login");
+        return Promise.reject();
+      }
+    );
 
-    function createApi() {
-        return axios.create({
-            baseURL: environment.backendUrl,
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
-    }
+    return axiosObject;
+  }
 
-    const api = useMemo(createApi, [token]);
+  function createApi() {
+    const axiosObject = axios.create({
+      baseURL: environment.backendUrl,
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
 
-    return api;
+    return addUnauthorizedInterceptor(axiosObject);
+  }
+
+  const { token } = useAuth();
+  const api = useMemo(createApi, [token]);
+  const navigate = useNavigate();
+
+  return api;
 }
