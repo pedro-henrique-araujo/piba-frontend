@@ -2,9 +2,8 @@ import { ThemeProvider, BaseStyles } from "@primer/react";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 import Header from "./shared/Header";
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./AuthProvider";
-
 
 function App() {
   return (

@@ -8,6 +8,7 @@ module.exports = {
         "primary-hover": "#18b541",
         danger: "#C12A24",
         "danger-hover": "#d42922",
+        link: "#0969da",
       },
     },
   },

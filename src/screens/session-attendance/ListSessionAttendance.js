@@ -3,24 +3,30 @@ import { useApi } from "../../shared/useApi";
 import { Table, DataTable } from "@primer/react/drafts";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { Link, useNavigate } from "react-router-dom";
+import PibPagination from "../../components/PibPagination";
 
 function ListSessionAttendance() {
   async function loadSessionAttendances() {
     try {
+      const skip = (currentPage - 1) * pageSize;
       const {
-        data: { records },
-      } = await api.get("/session-attendance");
+        data: { total, records },
+      } = await api.get(`/session-attendance?skip=${skip}&take=${pageSize}`);
       setSessionAttedances(records);
+      setTotalNumberOfRecords(total);
     } catch {}
   }
 
-  useEffect(() => {
-    loadSessionAttendances();
-  }, []);
-
   const api = useApi();
   const [sessionAttendances, setSessionAttedances] = useState([]);
+  const [totalNumberOfRecords, setTotalNumberOfRecords] = useState(0);
+  const [pageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    loadSessionAttendances();
+  }, [currentPage]);
 
   return (
     <div className="mx-auto p-5 max-w-xl">
@@ -54,6 +60,14 @@ function ListSessionAttendance() {
           data={sessionAttendances}
         />
       </Table.Container>
+      <div className="mt-10">
+        <PibPagination
+          currentPage={currentPage}
+          switchToPreviousPage={() => setCurrentPage(currentPage - 1)}
+          switchToNextPage={() => setCurrentPage(currentPage + 1)}
+          totalNumberOfPages={Math.ceil(totalNumberOfRecords / pageSize)}
+        />
+      </div>
     </div>
   );
 }
