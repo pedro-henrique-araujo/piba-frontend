@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../../shared/useApi";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
+import PibBlankButton from "../../components/PibBlankButton";
 import { useNavigate } from "react-router-dom";
 import { TextInput } from "@primer/react";
+import chevronLeftLink from "../../assets/chevron-left-link.svg";
 
 export default function NewSessionAttendance() {
   async function loadOptions() {
@@ -63,8 +65,18 @@ export default function NewSessionAttendance() {
 
   return (
     <div className="mx-auto p-5 max-w-xl">
-      <div className="mb-5 w-20">
-        <PibPrimaryButton onClick={save}>Salvar</PibPrimaryButton>
+      <div className="mb-5 w-20 flex w-full">
+        <div className="w-20">
+          <PibBlankButton onClick={() => navigate("/frequencia/sessao")}>
+            <div className="flex">
+              <img src={chevronLeftLink} />
+              <span>Voltar</span>
+            </div>
+          </PibBlankButton>
+        </div>
+        <div className="w-20">
+          <PibPrimaryButton onClick={save}>Salvar</PibPrimaryButton>
+        </div>
       </div>
 
       <TextInput

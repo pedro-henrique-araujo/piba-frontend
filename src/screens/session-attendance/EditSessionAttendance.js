@@ -7,6 +7,7 @@ import { TextInput } from "@primer/react";
 import { useNavigate } from "react-router-dom";
 import trashSvg from "../../assets/trash.svg";
 import PibDeletionConfirmationModalWindow from "../../components/PibDeletionConfirmationModalWindow";
+import chevronLeftLink from "../../assets/chevron-left-link.svg";
 
 export function EditSessionAttendance() {
   async function loadData() {
@@ -65,8 +66,20 @@ export function EditSessionAttendance() {
     <>
       <div className="mx-auto p-5 max-w-xl">
         <div className="flex justify-between mb-5">
-          <div className="w-20">
-            <PibPrimaryButton onClick={save}>Salvar</PibPrimaryButton>
+          <div>
+            <div className="mb-5 w-20 flex w-full">
+              <div className="w-20">
+                <PibBlankButton onClick={() => navigate("/frequencia/sessao")}>
+                  <div className="flex">
+                    <img src={chevronLeftLink} />
+                    <span>Voltar</span>
+                  </div>
+                </PibBlankButton>
+              </div>
+              <div className="w-20">
+                <PibPrimaryButton onClick={save}>Salvar</PibPrimaryButton>
+              </div>
+            </div>
           </div>
           <div className="w-10">
             <PibBlankButton onClick={openRemoveModal}>
