@@ -81,13 +81,14 @@ export default function NewSessionAttendance() {
 
       <TextInput
         className="mb-3"
-        sx={{ fontSize: "1rem" }}
+        sx={{ fontSize: "1rem", height: "2.25rem", width: "75%" }}
         placeholder="Pesquisar..."
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
       <div className="mt-1 mb-3">
         <input
+          className="h-9 w-3/4 px-3 border border-gray-300 rounded rounded-lg shadow-sm bg-white"
           type="date"
           onChange={(event) => setDateTime(event.target.value)}
           value={new Date(dateTime).toISOString().split("T")[0]}
@@ -98,7 +99,7 @@ export default function NewSessionAttendance() {
           <li
             key={item.id}
             className={
-              "mb-3 p-2 border cursor-pointer rounded " +
+              "mb-3 p-2 border cursor-pointer rounded-lg " +
               (item.isPresent ? "border-emerald-300 bg-emerald-100" : "")
             }
             onClick={() => toggleItem(item.id)}
