@@ -13,7 +13,7 @@ export function EditSessionAttendance() {
   async function loadData() {
     const { data } = await api.get("/session-attendance/" + id);
     setItems(data.items);
-    setDateTime(data.dateTime);
+    setDateTime(new Date(data.dateTime).toISOString().split("T")[0]);
   }
 
   function toggleItem(id) {
@@ -102,7 +102,7 @@ export function EditSessionAttendance() {
             className="h-9 w-3/4 px-3 border border-gray-300 rounded rounded-lg shadow-sm bg-white"
             type="date"
             onChange={(event) => setDateTime(event.target.value)}
-            value={new Date(dateTime).toISOString().split("T")[0]}
+            value={dateTime}
           />
         </div>
         <ul>
