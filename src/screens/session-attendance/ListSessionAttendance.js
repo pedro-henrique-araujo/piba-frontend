@@ -4,6 +4,7 @@ import { Table, DataTable } from "@primer/react/drafts";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { Link, useNavigate } from "react-router-dom";
 import PibPagination from "../../components/PibPagination";
+import infoLinkSvg from "../../assets/info-link.svg";
 
 function ListSessionAttendance() {
   async function loadSessionAttendances() {
@@ -54,11 +55,14 @@ function ListSessionAttendance() {
               },
             },
             {
+              maxWidth: "50px",
               field: "id",
               header: "",
               renderCell({ id }) {
                 return (
-                  <Link to={"/frequencia/sessao/editar/" + id}>Editar</Link>
+                  <Link to={"/frequencia/sessao/editar/" + id}>
+                    <img src={infoLinkSvg} />
+                  </Link>
                 );
               },
             },
