@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useApi } from "../../shared/useApi";
 import { useParams } from "react-router-dom";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
+import PibBlankButton from "../../components/PibBlankButton";
 import { TextInput } from "@primer/react";
 import { useNavigate } from "react-router-dom";
+import trashSvg from "../../assets/trash.svg";
 
 export function EditSessionAttendance() {
   async function loadData() {
@@ -60,13 +62,18 @@ export function EditSessionAttendance() {
   return (
     <>
       <div className="mx-auto p-5 max-w-xl">
-        <PibPrimaryButton width="20" onClick={save}>
-          Salvar
-        </PibPrimaryButton>
-
-        <PibPrimaryButton width="20" onClick={openRemoveModal}>
-          Remover
-        </PibPrimaryButton>
+        <div className="flex justify-between mb-5">
+          <div className="w-20">
+            <PibPrimaryButton onClick={save}>Salvar</PibPrimaryButton>
+          </div>
+          <div className="w-10">
+            <PibBlankButton onClick={openRemoveModal}>
+              <div className="flex justify-center align-center">
+                <img src={trashSvg} />
+              </div>
+            </PibBlankButton>
+          </div>
+        </div>
 
         <TextInput
           className="mb-3"
@@ -74,7 +81,9 @@ export function EditSessionAttendance() {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
-        {new Date(dateTime).toLocaleDateString()}
+        <div className="mb-3">
+          {dateTime ? new Date(dateTime).toLocaleDateString() : ""}
+        </div>
         <ul>
           {searchedItems.map((item) => (
             <li

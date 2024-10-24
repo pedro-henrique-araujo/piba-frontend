@@ -61,9 +61,10 @@ export default function NewSessionAttendance() {
 
   return (
     <div className="mx-auto p-5 max-w-xl">
-      <PibPrimaryButton width="20" onClick={save}>
-        Salvar
-      </PibPrimaryButton>
+      <div className="mb-5 w-20">
+        <PibPrimaryButton onClick={save}>Salvar</PibPrimaryButton>
+      </div>
+
       <TextInput
         className="mb-3"
         placeholder="Pesquisar..."
