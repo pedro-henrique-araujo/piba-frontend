@@ -25,6 +25,7 @@ export function EditSessionAttendance() {
   async function save() {
     const payload = {
       id: id,
+      dateTime,
       items: items.map(({ id, isPresent }) => ({
         id: id,
         isPresent: isPresent,
@@ -82,7 +83,11 @@ export function EditSessionAttendance() {
           onChange={(event) => setSearch(event.target.value)}
         />
         <div className="mb-3">
-          {dateTime ? new Date(dateTime).toLocaleDateString() : ""}
+          <input
+            type="date"
+            onChange={(event) => setDateTime(event.target.value)}
+            value={new Date(dateTime).toISOString().split("T")[0]}
+          />
         </div>
         <ul>
           {searchedItems.map((item) => (

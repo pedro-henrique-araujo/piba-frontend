@@ -33,6 +33,7 @@ export default function NewSessionAttendance() {
 
   async function save() {
     const payload = {
+      dateTime,
       items: items.map(({ id, isPresent }) => ({
         memberId: id,
         isPresent: isPresent,
@@ -49,6 +50,7 @@ export default function NewSessionAttendance() {
   const api = useApi();
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
+  const [dateTime, setDateTime] = useState(new Date());
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -71,6 +73,13 @@ export default function NewSessionAttendance() {
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
+      <div className="mb-3">
+        <input
+          type="date"
+          onChange={(event) => setDateTime(event.target.value)}
+          value={new Date(dateTime).toISOString().split("T")[0]}
+        />
+      </div>
       <ul>
         {searchedItems.map((item) => (
           <li
