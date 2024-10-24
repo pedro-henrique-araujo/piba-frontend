@@ -52,7 +52,9 @@ export default function NewSessionAttendance() {
   const api = useApi();
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
-  const [dateTime, setDateTime] = useState(new Date());
+  const [dateTime, setDateTime] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -91,7 +93,7 @@ export default function NewSessionAttendance() {
           className="h-9 w-3/4 px-3 border border-gray-300 rounded rounded-lg shadow-sm bg-white"
           type="date"
           onChange={(event) => setDateTime(event.target.value)}
-          value={new Date(dateTime).toISOString().split("T")[0]}
+          value={dateTime}
         />
       </div>
       <ul>
