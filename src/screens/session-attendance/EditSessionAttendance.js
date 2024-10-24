@@ -6,6 +6,7 @@ import PibBlankButton from "../../components/PibBlankButton";
 import { TextInput } from "@primer/react";
 import { useNavigate } from "react-router-dom";
 import trashSvg from "../../assets/trash.svg";
+import PibDeletionConfirmationModalWindow from "../../components/PibDeletionConfirmationModalWindow";
 
 export function EditSessionAttendance() {
   async function loadData() {
@@ -104,15 +105,11 @@ export function EditSessionAttendance() {
           ))}
         </ul>
       </div>
-      {displayRemoveModal && (
-        <div className="absolute top-0 bg-neutral-950/25 backdrop-blur w-full h-full">
-          <div className="bg-white rounded mx-auto p-5 max-w-xl mt-40">
-            <div>Tem certeza que você quer remover esse registro?</div>
-            <button onClick={remove}>Sim</button>
-            <button onClick={() => setDisplayRemoveModal(false)}>Não</button>
-          </div>
-        </div>
-      )}
+      <PibDeletionConfirmationModalWindow
+        visible={displayRemoveModal}
+        onClose={() => setDisplayRemoveModal(false)}
+        onConfirm={remove}
+      />
     </>
   );
 }
