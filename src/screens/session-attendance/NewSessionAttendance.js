@@ -81,11 +81,12 @@ export default function NewSessionAttendance() {
 
       <TextInput
         className="mb-3"
+        sx={{ fontSize: "1rem" }}
         placeholder="Pesquisar..."
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
-      <div className="mb-3">
+      <div className="mt-1 mb-3">
         <input
           type="date"
           onChange={(event) => setDateTime(event.target.value)}

@@ -67,7 +67,7 @@ export function EditSessionAttendance() {
       <div className="mx-auto p-5 max-w-xl">
         <div className="flex justify-between mb-5">
           <div>
-            <div className="mb-5 w-20 flex w-full">
+            <div className="w-20 flex w-full">
               <div className="w-20">
                 <PibBlankButton onClick={() => navigate("/frequencia/sessao")}>
                   <div className="flex">
@@ -92,11 +92,12 @@ export function EditSessionAttendance() {
 
         <TextInput
           className="mb-3"
+          sx={{ fontSize: "1rem" }}
           placeholder="Pesquisar..."
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
-        <div className="mb-3">
+        <div className="mt-1 mb-3">
           <input
             type="date"
             onChange={(event) => setDateTime(event.target.value)}
