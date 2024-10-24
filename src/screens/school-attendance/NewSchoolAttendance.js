@@ -109,9 +109,11 @@ function NewSchoolAttendance() {
           <PibLocationIcon />
           <span>Ative a localização</span>
         </div>
-        <PibPrimaryButton onClick={submit} disabled={isInvalid || isSending}>
-          {isSending ? "Enviando..." : "Enviar"}
-        </PibPrimaryButton>
+        <div className="mt-8">
+          <PibPrimaryButton onClick={submit} disabled={isInvalid || isSending}>
+            {isSending ? "Enviando..." : "Enviar"}
+          </PibPrimaryButton>
+        </div>
       </form>
     </div>
   );

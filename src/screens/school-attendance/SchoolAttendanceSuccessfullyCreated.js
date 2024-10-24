@@ -5,9 +5,11 @@ function SchoolAttendanceSuccessfullyCreated() {
   return (
     <div className="mx-auto p-5 max-w-xl text-center font-medium">
       <p>Frequência indicada com sucesso!</p>
-      <Link to="/frequencia/eb">
-        <PibPrimaryButton>Enviar outra</PibPrimaryButton>
-      </Link>
+      <div className="mt-8">
+        <Link to="/frequencia/eb">
+          <PibPrimaryButton>Enviar outra</PibPrimaryButton>
+        </Link>
+      </div>
     </div>
   );
 }

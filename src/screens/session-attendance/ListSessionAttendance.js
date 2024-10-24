@@ -24,12 +24,12 @@ function ListSessionAttendance() {
 
   return (
     <div className="mx-auto p-5 max-w-xl">
-      <PibPrimaryButton
-        onClick={() => navigate("/frequencia/sessao/nova")}
-        width="20"
-      >
-        Nova
-      </PibPrimaryButton>
+      <div className="mb-5 w-20">
+        <PibPrimaryButton onClick={() => navigate("/frequencia/sessao/nova")}>
+          Nova
+        </PibPrimaryButton>
+      </div>
+
       <Table.Container>
         <Table.Title>Frequências de sessões</Table.Title>
         <DataTable
