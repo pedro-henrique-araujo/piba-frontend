@@ -37,14 +37,20 @@ function ListSessionAttendance() {
       </div>
 
       <Table.Container>
-        <Table.Title>Frequências de sessões</Table.Title>
+        <Table.Title>
+          <div className="text-lg">Frequências de sessões</div>
+        </Table.Title>
         <DataTable
           columns={[
             {
               field: "dateTime",
-              header: "Data",
+              header: () => <div className="text-base">Data</div>,
               renderCell({ dateTime }) {
-                return new Date(dateTime).toLocaleDateString();
+                return (
+                  <div className="text-base">
+                    {new Date(dateTime).toLocaleDateString()}
+                  </div>
+                );
               },
             },
             {
