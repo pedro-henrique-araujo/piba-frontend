@@ -31,7 +31,7 @@ export function useApi() {
   }
 
   const { token } = useAuth();
-  const api = useMemo(createApi, [token, addUnauthorizedInterceptor]);
+  const api = useMemo(createApi, [token]);
   const navigate = useNavigate();
 
   return api;
