@@ -19,7 +19,7 @@ export function EditSessionAttendance() {
   function toggleItem(id) {
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, isPresent: !item.isPresent } : item,
+        item.id == id ? { ...item, isPresent: !item.isPresent } : item,
       ),
     );
   }
@@ -48,7 +48,7 @@ export function EditSessionAttendance() {
 
   useEffect(() => {
     loadData();
-  });
+  }, []);
 
   const [items, setItems] = useState([]);
   const api = useApi();
@@ -73,7 +73,7 @@ export function EditSessionAttendance() {
               <div className="w-20">
                 <PibBlankButton onClick={() => navigate("/frequencia/sessao")}>
                   <div className="flex">
-                    <img src={chevronLeftLink} alt="<" />
+                    <img src={chevronLeftLink} />
                     <span>Voltar</span>
                   </div>
                 </PibBlankButton>
@@ -86,7 +86,7 @@ export function EditSessionAttendance() {
           <div className="w-10">
             <PibBlankButton onClick={openRemoveModal}>
               <div className="flex justify-center align-center">
-                <img src={trashSvg} alt="Deletar" />
+                <img src={trashSvg} />
               </div>
             </PibBlankButton>
           </div>
