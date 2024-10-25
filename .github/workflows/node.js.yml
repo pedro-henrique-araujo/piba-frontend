@@ -22,5 +22,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm install
+      - run: npx browserslist@latest
       - run: npm run build --if-present
       - run: npm run lint:dev
