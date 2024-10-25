@@ -11,11 +11,11 @@ export default function NewSessionAttendance() {
     const { data } = await api.options("/member");
 
     const draftItems = JSON.parse(
-      localStorage.getItem("session-attendance-draft") || "[]"
+      localStorage.getItem("session-attendance-draft") || "[]",
     );
 
     const optionsWithDraft = data.map((o) => {
-      const itemInDraft = draftItems.find((i) => i.id == o.id);
+      const itemInDraft = draftItems.find((i) => i.id === o.id);
       if (itemInDraft) return itemInDraft;
       return o;
     });
@@ -25,7 +25,7 @@ export default function NewSessionAttendance() {
 
   function toggleItem(id) {
     const newItems = items.map((item) =>
-      item.id == id ? { ...item, isPresent: !item.isPresent } : item
+      item.id === id ? { ...item, isPresent: !item.isPresent } : item,
     );
 
     localStorage.setItem("session-attendance-draft", JSON.stringify(newItems));
@@ -53,7 +53,7 @@ export default function NewSessionAttendance() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [dateTime, setDateTime] = useState(
-    new Date().toISOString().split("T")[0]
+    new Date().toISOString().split("T")[0],
   );
   const [search, setSearch] = useState("");
 
@@ -62,7 +62,7 @@ export default function NewSessionAttendance() {
   }, []);
 
   const searchedItems = items.filter((item) =>
-    search ? item.name.toLowerCase().includes(search.toLowerCase()) : true
+    search ? item.name.toLowerCase().includes(search.toLowerCase()) : true,
   );
 
   return (

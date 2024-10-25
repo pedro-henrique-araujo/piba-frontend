@@ -19,8 +19,8 @@ export function EditSessionAttendance() {
   function toggleItem(id) {
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.id == id ? { ...item, isPresent: !item.isPresent } : item
-      )
+        item.id === id ? { ...item, isPresent: !item.isPresent } : item,
+      ),
     );
   }
 
@@ -59,7 +59,9 @@ export function EditSessionAttendance() {
   const navigate = useNavigate();
 
   const searchedItems = items.filter((item) =>
-    search ? item.memberName.toLowerCase().includes(search.toLowerCase()) : true
+    search
+      ? item.memberName.toLowerCase().includes(search.toLowerCase())
+      : true,
   );
 
   return (

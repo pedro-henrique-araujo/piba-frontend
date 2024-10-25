@@ -11,7 +11,7 @@ function PibPagination({
     <div className="flex justify-between">
       <button
         className="text-link disabled:opacity-50 flex items-start"
-        disabled={currentPage == 1}
+        disabled={currentPage === 1}
         onClick={switchToPreviousPage}
       >
         <img src={chevronLeftLinkSvg} />
@@ -22,7 +22,7 @@ function PibPagination({
       </div>
       <button
         className="text-link disabled:opacity-50  flex items-center"
-        disabled={currentPage == totalNumberOfPages}
+        disabled={currentPage === totalNumberOfPages}
         onClick={switchToNextPage}
       >
         <div>Próxima</div>

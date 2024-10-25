@@ -7,7 +7,7 @@ function PibRadioGroup({ onChange, value, label, options }) {
         <RadioGroup.Label>{label}</RadioGroup.Label>
         {options.map((o) => (
           <FormControl key={o.value}>
-            <Radio value={o.value} checked={o.value == value} />
+            <Radio value={o.value} checked={o.value === value} />
             <FormControl.Label>{o.label}</FormControl.Label>
           </FormControl>
         ))}
