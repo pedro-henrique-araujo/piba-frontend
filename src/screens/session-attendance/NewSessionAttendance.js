@@ -59,7 +59,7 @@ export default function NewSessionAttendance() {
 
   useEffect(() => {
     loadOptions();
-  }, []);
+  }, [loadOptions]);
 
   const searchedItems = items.filter((item) =>
     search ? item.name.toLowerCase().includes(search.toLowerCase()) : true,

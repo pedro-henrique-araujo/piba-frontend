@@ -27,7 +27,7 @@ function ListSessionAttendance() {
 
   useEffect(() => {
     loadSessionAttendances();
-  }, [currentPage]);
+  }, [currentPage, loadSessionAttendances]);
 
   return (
     <div className="mx-auto p-5 max-w-xl">
