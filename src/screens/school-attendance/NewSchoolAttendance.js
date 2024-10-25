@@ -13,7 +13,7 @@ function NewSchoolAttendance() {
     const { latitude, longitude } = userPosition?.coords || {};
     await api.post("school-attendance", {
       memberId: selectedMember.id,
-      isPresent: isPresent == "true",
+      isPresent: isPresent === "true",
       excuse: excuse,
       latitude: latitude,
       longitude: longitude,
@@ -29,7 +29,7 @@ function NewSchoolAttendance() {
           id,
           text: name,
         }))
-        .sort((a, b) => a.text.localeCompare(b.text))
+        .sort((a, b) => a.text.localeCompare(b.text)),
     );
   }
 
@@ -59,7 +59,7 @@ function NewSchoolAttendance() {
       return;
     }
 
-    if (isPresent == "false" && !excuse) {
+    if (isPresent === "false" && !excuse) {
       setIsInvalid(true);
       return;
     }
@@ -96,7 +96,7 @@ function NewSchoolAttendance() {
           onChange={setIsPresent}
           value={isPresent}
         />
-        {isPresent == "false" && (
+        {isPresent === "false" && (
           <PibTextarea
             label="Justificativa"
             placeholder="Insira uma justificativa..."

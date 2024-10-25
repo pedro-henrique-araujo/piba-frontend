@@ -15,10 +15,11 @@ function PibDeletionConfirmationModalWindow({ onClose, visible, onConfirm }) {
         >
           <img
             src={xSvg}
+            alt="Fechar"
             className="absolute top-5 right-5 cursor-pointer"
             onClick={onClose}
           />
-          <img src={alertTriangeImage} />
+          <img src={alertTriangeImage} alt="Alerta" />
           <p className="font-bold text-2xl mt-2">Atenção</p>
           <p className="mt-2">
             Tem certeza que você quer&nbsp;
