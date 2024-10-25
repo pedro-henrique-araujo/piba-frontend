@@ -14,7 +14,7 @@ function PibPagination({
         disabled={currentPage === 1}
         onClick={switchToPreviousPage}
       >
-        <img src={chevronLeftLinkSvg} />
+        <img src={chevronLeftLinkSvg} alt="<" />
         <div>Anterior</div>
       </button>
       <div>
@@ -26,7 +26,7 @@ function PibPagination({
         onClick={switchToNextPage}
       >
         <div>Próxima</div>
-        <img src={chevronRightLinkSvg} />
+        <img src={chevronRightLinkSvg} alt=">" />
       </button>
     </div>
   );

@@ -73,7 +73,7 @@ export function EditSessionAttendance() {
               <div className="w-20">
                 <PibBlankButton onClick={() => navigate("/frequencia/sessao")}>
                   <div className="flex">
-                    <img src={chevronLeftLink} />
+                    <img src={chevronLeftLink} alt="<" />
                     <span>Voltar</span>
                   </div>
                 </PibBlankButton>
@@ -86,7 +86,7 @@ export function EditSessionAttendance() {
           <div className="w-10">
             <PibBlankButton onClick={openRemoveModal}>
               <div className="flex justify-center align-center">
-                <img src={trashSvg} />
+                <img src={trashSvg} alt="Deletar" />
               </div>
             </PibBlankButton>
           </div>

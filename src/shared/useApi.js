@@ -10,10 +10,10 @@ export function useApi() {
       (response) => response,
       (error) => {
         console.log(error.response.status);
-        if (error.response.status != 403) return;
+        if (error.response.status !== 403) return;
         navigate("/login");
         return Promise.reject();
-      }
+      },
     );
 
     return axiosObject;

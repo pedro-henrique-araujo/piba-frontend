@@ -71,7 +71,7 @@ export default function NewSessionAttendance() {
         <div className="w-20">
           <PibBlankButton onClick={() => navigate("/frequencia/sessao")}>
             <div className="flex">
-              <img src={chevronLeftLink} />
+              <img src={chevronLeftLink} alt="<" />
               <span>Voltar</span>
             </div>
           </PibBlankButton>

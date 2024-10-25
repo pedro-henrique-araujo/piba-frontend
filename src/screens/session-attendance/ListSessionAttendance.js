@@ -61,7 +61,7 @@ function ListSessionAttendance() {
               renderCell({ id }) {
                 return (
                   <Link to={"/frequencia/sessao/editar/" + id}>
-                    <img src={infoLinkSvg} />
+                    <img src={infoLinkSvg} alt="Informação" />
                   </Link>
                 );
               },
