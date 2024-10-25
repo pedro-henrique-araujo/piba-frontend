@@ -48,7 +48,7 @@ export function EditSessionAttendance() {
 
   useEffect(() => {
     loadData();
-  }, [loadData]);
+  });
 
   const [items, setItems] = useState([]);
   const api = useApi();
