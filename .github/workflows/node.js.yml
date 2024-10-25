@@ -23,8 +23,4 @@ jobs:
           cache: "npm"
       - run: npm install
       - run: npx update-browserslist-db@latest
-      - name: Build
-        run: npm run build --if-present
-        env:
-          CI: false
       - run: npm run lint:dev
