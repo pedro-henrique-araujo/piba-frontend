@@ -21,7 +21,7 @@ function PibPagination({
         Página {currentPage} de {totalNumberOfPages}
       </div>
       <button
-        className="text-link disabled:opacity-50  flex items-center"
+        className="text-link disabled:opacity-50 flex items-center"
         disabled={currentPage === totalNumberOfPages}
         onClick={switchToNextPage}
       >

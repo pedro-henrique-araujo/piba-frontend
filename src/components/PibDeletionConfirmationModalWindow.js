@@ -22,7 +22,7 @@ function PibDeletionConfirmationModalWindow({ onClose, visible, onConfirm }) {
           />
           <img src={alertTriangeImage} alt="Alerta" />
           <p className="font-bold text-2xl mt-2">Atenção</p>
-          <p role="message" className="mt-2">
+          <p className="mt-2">
             Tem certeza que você quer<span>remover</span>esse registro?
           </p>
           <div className="flex justify-between mt-10 w-1/2 mx-auto font-semibold">
