@@ -10,6 +10,7 @@ function PibDeletionConfirmationModalWindow({ onClose, visible, onConfirm }) {
     >
       <div className="flex w-full justify-center">
         <div
+          role="dialog"
           className="bg-white rounded mx-auto p-5 max-w-xl mt-40 mx-5 relative"
           onClick={(event) => event.stopPropagation()}
         >
@@ -22,9 +23,7 @@ function PibDeletionConfirmationModalWindow({ onClose, visible, onConfirm }) {
           <img src={alertTriangeImage} alt="Alerta" />
           <p className="font-bold text-2xl mt-2">Atenção</p>
           <p className="mt-2">
-            Tem certeza que você quer&nbsp;
-            <span className="font-semibold">remover</span>
-            &nbsp;esse registro?
+            Tem certeza que você quer<span>remover</span>esse registro?
           </p>
           <div className="flex justify-between mt-10 w-1/2 mx-auto font-semibold">
             <button className="text-danger" onClick={onConfirm}>

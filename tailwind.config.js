@@ -10,6 +10,10 @@ module.exports = {
         "danger-hover": "#d42922",
         link: "#0969da",
       },
+      boxShadow: {
+        DEFAULT:
+          "rgba(31, 35, 40, 0.12) 0px 1px 3px, rgba(66, 74, 83, 0.12) 0px 8px 24px;",
+      },
     },
   },
   plugins: [],
