@@ -6,6 +6,7 @@ function PibSelectPanelSelector({ selected, items, onSelectedChange }) {
       <div className="p-2 h-96 overflow-y-scroll">
         {items?.map((item) => (
           <button
+            key={item.id}
             onClick={(event) => onSelectedChange(event, item)}
             className={
               "py-2 px-5 hover:bg-gray-100 rounded-lg flex items-center w-full mb-1" +

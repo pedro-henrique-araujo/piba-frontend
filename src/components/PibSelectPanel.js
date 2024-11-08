@@ -36,6 +36,7 @@ function PibSelectPanel({
   const [open, setOpen] = useState(false);
   const [isSearchSelected, setIsSearchSelected] = useState(false);
   const myElementRef = useRef(null);
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -54,6 +55,12 @@ function PibSelectPanel({
     };
   }, []);
 
+  useEffect(() => {
+    if (open && searchInputRef?.current) {
+      searchInputRef?.current.focus();
+    }
+  }, [open]);
+
   return (
     <div ref={myElementRef} className="my-8 relative">
       <div className="font-semibold mb-1">{label}</div>
@@ -68,6 +75,7 @@ function PibSelectPanel({
           <div className="p-2">
             <div className="font-semibold m-2">{title}</div>
             <PibSearchInput
+              reference={searchInputRef}
               isSearchSelected={isSearchSelected}
               onFocus={() => setIsSearchSelected(true)}
               onBlur={() => setIsSearchSelected(false)}

@@ -1,6 +1,7 @@
 import searchSvg from "../assets/search.svg";
 
 function PibSearchInput({
+  reference,
   isSearchSelected,
   onFocus,
   onBlur,
@@ -17,6 +18,7 @@ function PibSearchInput({
       </div>
 
       <input
+        ref={reference}
         onFocus={onFocus}
         onBlur={onBlur}
         placeholder={placeholder}
