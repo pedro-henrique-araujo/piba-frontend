@@ -1,107 +1,134 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import PibSelectPanel from "./PibSelectPanel";
-import { ThemeProvider, BaseStyles } from "@primer/react";
-
-class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-}
-//
 
 describe("PibSelectPanel", () => {
   const items = [
-    { text: "Apple" },
-    { text: "Banana" },
-    { text: "Cherry" },
-    { text: "Date" },
+    { id: 1, text: "Item 1" },
+    { id: 2, text: "Item 2" },
+    { id: 3, text: "Item 3" },
   ];
+  const label = "Select Item";
+  const title = "Select an item";
+  const placeholder = "Search items";
 
-  window.ResizeObserver = ResizeObserver;
-
-  test("renders without crashing", () => {
+  test("renders PibSelectPanel with label and title", () => {
     render(
       <PibSelectPanel
         items={items}
-        selected={[]}
+        selected={null}
         onSelectedChange={() => {}}
-        label="Select Fruit"
-        title="Fruits"
-        placeholder="Choose a fruit"
+        label={label}
+        title={title}
+        placeholder={placeholder}
       />,
     );
-    expect(screen.getByLabelText("Select Fruit")).toBeInTheDocument();
+
+    const button = screen.getByText(title);
+
+    expect(screen.getByText(label)).toBeInTheDocument();
+    expect(screen.getByText(title)).toBeInTheDocument();
   });
 
-  test("opens select panel on button click", () => {
+  test("when item is selected its name is the button text", () => {
     render(
       <PibSelectPanel
         items={items}
-        selected={[]}
+        selected={items[0]}
         onSelectedChange={() => {}}
-        label="Select Fruit"
-        title="Fruits"
-        placeholder="Choose a fruit"
+        label={label}
+        title={title}
+        placeholder={placeholder}
       />,
     );
-    fireEvent.click(screen.getByRole("button", { name: /Fruits/i }));
-    expect(screen.getByText("Choose a fruit")).toBeInTheDocument();
+
+    const button = screen.getByText("Item 1");
+
+    expect(button).toBeInTheDocument();
   });
 
-  test("filters items correctly", () => {
+  test("opens and closes the dropdown on button click", () => {
     render(
       <PibSelectPanel
         items={items}
-        selected={[]}
+        selected={null}
         onSelectedChange={() => {}}
-        label="Select Fruit"
-        title="Fruits"
-        placeholder="Choose a fruit"
+        label={label}
+        title={title}
+        placeholder={placeholder}
       />,
     );
-    screen.debug();
-    fireEvent.click(screen.getByText(/Fruits/i).parentElement.parentElement);
-    fireEvent.change(screen.getByPlaceholderText("Choose a fruit"), {
-      target: { value: "ap" },
-    });
-    expect(screen.getByText("Apple")).toBeInTheDocument();
-    expect(screen.queryByText("Banana")).toBeNull();
+
+    const button = screen.getByText(title);
+    fireEvent.click(button);
+    expect(screen.getByPlaceholderText(placeholder)).toBeInTheDocument();
+
+    fireEvent.click(button);
+    expect(screen.queryByPlaceholderText(placeholder)).not.toBeInTheDocument();
   });
 
-  test("calls onSelectedChange when selection changes", () => {
+  test("filters items based on search input", () => {
+    render(
+      <PibSelectPanel
+        items={items}
+        selected={null}
+        onSelectedChange={() => {}}
+        label={label}
+        title={title}
+        placeholder={placeholder}
+      />,
+    );
+
+    const button = screen.getByText(title);
+    fireEvent.click(button);
+
+    const searchInput = screen.getByPlaceholderText(placeholder);
+    fireEvent.change(searchInput, { target: { value: "ITém 2" } });
+
+    expect(screen.getByText("Item 2")).toBeInTheDocument();
+    expect(screen.queryByText("Item 1")).not.toBeInTheDocument();
+    expect(screen.queryByText("Item 3")).not.toBeInTheDocument();
+  });
+
+  test("calls onSelectedChange with the selected item", () => {
     const onSelectedChange = jest.fn();
     render(
       <PibSelectPanel
         items={items}
-        selected={[]}
+        selected={null}
         onSelectedChange={onSelectedChange}
-        label="Select Fruit"
-        title="Fruits"
-        placeholder="Choose a fruit"
+        label={label}
+        title={title}
+        placeholder={placeholder}
       />,
     );
-    fireEvent.click(screen.getByRole("button", { name: /Fruits/i }));
-    fireEvent.click(screen.getByText("Apple"));
-    expect(onSelectedChange).toHaveBeenCalledWith(["Apple"]);
+
+    const button = screen.getByText(title);
+    fireEvent.click(button);
+
+    const item = screen.getByText("Item 1");
+    fireEvent.click(item);
+
+    expect(onSelectedChange).toHaveBeenCalledWith(items[0]);
   });
 
-  test("removes accents when filtering", () => {
-    const accentedItems = [{ text: "Açaí" }, { text: "Banana" }];
+  test("closes the dropdown when clicking outside", () => {
     render(
       <PibSelectPanel
-        items={accentedItems}
-        selected={[]}
+        items={items}
+        selected={null}
         onSelectedChange={() => {}}
-        label="Select Fruit"
-        title="Fruits"
-        placeholder="Choose a fruit"
+        label={label}
+        title={title}
+        placeholder={placeholder}
       />,
     );
-    fireEvent.click(screen.getByRole("button", { name: /Fruits/i }));
-    fireEvent.change(screen.getByPlaceholderText("Choose a fruit"), {
-      target: { value: "Acai" },
-    });
-    expect(screen.getByText("Açaí")).toBeInTheDocument();
+
+    const button = screen.getByText(title);
+    fireEvent.click(button);
+
+    expect(screen.getByPlaceholderText(placeholder)).toBeInTheDocument();
+
+    fireEvent.mouseDown(document);
+    expect(screen.queryByPlaceholderText(placeholder)).not.toBeInTheDocument();
   });
 });
