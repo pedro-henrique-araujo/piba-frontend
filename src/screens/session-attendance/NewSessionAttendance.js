@@ -5,6 +5,7 @@ import PibBlankButton from "../../components/PibBlankButton";
 import { useNavigate } from "react-router-dom";
 import { TextInput } from "@primer/react";
 import chevronLeftLink from "../../assets/chevron-left-link.svg";
+import PibButtonsSelector from "../../components/PibButtonsSelector";
 
 export default function NewSessionAttendance() {
   async function loadOptions() {
@@ -56,14 +57,20 @@ export default function NewSessionAttendance() {
     new Date().toISOString().split("T")[0],
   );
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     loadOptions();
   });
 
-  const searchedItems = items.filter((item) =>
-    search ? item.name.toLowerCase().includes(search.toLowerCase()) : true,
-  );
+  const searchedItems = items.filter((item) => {
+    const searchMatch = item.name.toLowerCase().includes(search.toLowerCase());
+    const statusMatch =
+      statusFilter === "all" ||
+      (statusFilter === "present" && item.isPresent) ||
+      (statusFilter === "absent" && !item.isPresent);
+    return searchMatch && statusMatch;
+  });
 
   return (
     <div className="mx-auto p-5 max-w-xl">
@@ -88,6 +95,15 @@ export default function NewSessionAttendance() {
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
+      <PibButtonsSelector
+        onChange={setStatusFilter}
+        value={statusFilter}
+        items={[
+          { value: "all", label: "Todos" },
+          { value: "present", label: "Presentes" },
+          { value: "absent", label: "Ausentes" },
+        ]}
+      />
       <div className="mt-1 mb-3">
         <input
           className="h-9 w-3/4 px-3 border border-gray-300 rounded rounded-lg shadow-sm bg-white"
@@ -97,18 +113,29 @@ export default function NewSessionAttendance() {
         />
       </div>
       <ul>
-        {searchedItems.map((item) => (
-          <li
-            key={item.id}
-            className={
-              "mb-3 p-2 border cursor-pointer rounded-lg " +
-              (item.isPresent ? "border-emerald-300 bg-emerald-100" : "")
-            }
-            onClick={() => toggleItem(item.id)}
-          >
-            {item.name}
-          </li>
-        ))}
+        {searchedItems.length > 0 ? (
+          searchedItems.map((item) => (
+            <li
+              key={item.id}
+              className={
+                "mb-3 p-2 border cursor-pointer rounded-lg " +
+                (item.isPresent ? "border-emerald-300 bg-emerald-100" : "")
+              }
+              onClick={() => toggleItem(item.id)}
+            >
+              {item.name}
+            </li>
+          ))
+        ) : (
+          <div className="text-center">
+            Não há membros{" "}
+            {statusFilter === "all"
+              ? ""
+              : statusFilter == "present"
+                ? "presentes"
+                : "ausentes"}
+          </div>
+        )}
       </ul>
     </div>
   );

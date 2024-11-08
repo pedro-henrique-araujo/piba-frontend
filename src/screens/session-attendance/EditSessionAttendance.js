@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import trashSvg from "../../assets/trash.svg";
 import PibDeletionConfirmationModalWindow from "../../components/PibDeletionConfirmationModalWindow";
 import chevronLeftLink from "../../assets/chevron-left-link.svg";
+import PibButtonsSelector from "../../components/PibButtonsSelector";
 
 export function EditSessionAttendance() {
   async function loadData() {
@@ -57,12 +58,18 @@ export function EditSessionAttendance() {
   const [displayRemoveModal, setDisplayRemoveModal] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [statusFilter, setStatusFilter] = useState("all");
 
-  const searchedItems = items.filter((item) =>
-    search
-      ? item.memberName.toLowerCase().includes(search.toLowerCase())
-      : true,
-  );
+  const searchedItems = items.filter((item) => {
+    const searchMatch = item?.memberName
+      ?.toLowerCase()
+      .includes(search.toLowerCase());
+    const statusMatch =
+      statusFilter === "all" ||
+      (statusFilter === "present" && item.isPresent) ||
+      (statusFilter === "absent" && !item.isPresent);
+    return searchMatch && statusMatch;
+  });
 
   return (
     <>
@@ -99,6 +106,15 @@ export function EditSessionAttendance() {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
+        <PibButtonsSelector
+          onChange={setStatusFilter}
+          value={statusFilter}
+          items={[
+            { value: "all", label: "Todos" },
+            { value: "present", label: "Presentes" },
+            { value: "absent", label: "Ausentes" },
+          ]}
+        />
         <div className="mt-1 mb-3">
           <input
             className="h-9 w-3/4 px-3 border border-gray-300 rounded rounded-lg shadow-sm bg-white"
@@ -108,18 +124,29 @@ export function EditSessionAttendance() {
           />
         </div>
         <ul>
-          {searchedItems.map((item) => (
-            <li
-              key={item.id}
-              className={
-                "mb-3 p-2 border cursor-pointer rounded " +
-                (item.isPresent ? "border-emerald-300 bg-emerald-100" : "")
-              }
-              onClick={() => toggleItem(item.id)}
-            >
-              {item.memberName}
-            </li>
-          ))}
+          {searchedItems.length > 0 ? (
+            searchedItems.map((item) => (
+              <li
+                key={item.id}
+                className={
+                  "mb-3 p-2 border cursor-pointer rounded " +
+                  (item.isPresent ? "border-emerald-300 bg-emerald-100" : "")
+                }
+                onClick={() => toggleItem(item.id)}
+              >
+                {item.memberName}
+              </li>
+            ))
+          ) : (
+            <div className="text-center">
+              Não há membros{" "}
+              {statusFilter === "all"
+                ? ""
+                : statusFilter == "present"
+                  ? "presentes"
+                  : "ausentes"}
+            </div>
+          )}
         </ul>
       </div>
       <PibDeletionConfirmationModalWindow
