@@ -55,4 +55,11 @@ describe("PibSearchInput", () => {
     const imgElement = screen.getByRole("img");
     expect(imgElement).toBeInTheDocument();
   });
+
+  it("receives reference prop and sets it to the input element", () => {
+    const reference = { current: null };
+    render(<PibSearchInput {...defaultProps} reference={reference} />);
+    const inputElement = screen.getByPlaceholderText("Search...");
+    expect(reference.current).toBe(inputElement);
+  });
 });

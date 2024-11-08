@@ -131,4 +131,22 @@ describe("PibSelectPanel", () => {
     fireEvent.mouseDown(document);
     expect(screen.queryByPlaceholderText(placeholder)).not.toBeInTheDocument();
   });
+
+  test("focuses on the search input when the dropdown is opened", () => {
+    render(
+      <PibSelectPanel
+        items={items}
+        selected={null}
+        onSelectedChange={() => {}}
+        label={label}
+        title={title}
+        placeholder={placeholder}
+      />,
+    );
+
+    const button = screen.getByText(title);
+    fireEvent.click(button);
+
+    expect(screen.getByPlaceholderText(placeholder)).toHaveFocus();
+  });
 });
