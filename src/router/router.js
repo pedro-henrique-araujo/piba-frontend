@@ -1,3 +1,7 @@
+import CanteAvailabilityCalendar from "../screens/cante-availability/CanteAvailabilityCalendar";
+import EditCanteAvailabilityCalendar from "../screens/cante-availability/EditCanteAvailabilityCalendar";
+import MediaAvailabilityCalendar from "../screens/media-availability/MediaAvailabilityCalendar";
+import EditMediaAvailabilityCalendar from "../screens/media-availability/EditMediaAvailabilityCalendar";
 import Login from "../screens/login/Login";
 import NewSchoolAttendance from "../screens/school-attendance/NewSchoolAttendance";
 import SchoolAttendanceSuccessfullyCreated from "../screens/school-attendance/SchoolAttendanceSuccessfullyCreated";
@@ -24,6 +28,14 @@ const router = createBrowserRouter([
     element: <SchoolAttendanceSuccessfullyCreated />,
   },
   {
+    path: "/calendario/cante",
+    element: <CanteAvailabilityCalendar />,
+  },
+  {
+    path: "/calendario/midia",
+    element: <MediaAvailabilityCalendar />,
+  },
+  {
     loader() {
       if (!localStorage.getItem("token")) {
         return redirect("/");
@@ -42,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: "/frequencia/sessao/editar/:id",
         element: <EditSessionAttendance />,
+      },
+      {
+        path: "/calendario/cante/editar",
+        element: <EditCanteAvailabilityCalendar />,
+      },
+      {
+        path: "/calendario/midia/editar",
+        element: <EditMediaAvailabilityCalendar />,
       },
     ],
   },
