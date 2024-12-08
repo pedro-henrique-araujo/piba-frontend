@@ -28,13 +28,13 @@ const router = createBrowserRouter([
     element: <SchoolAttendanceSuccessfullyCreated />,
   },
   {
-    path: '/calendario/cante',
-    element: <CanteAvailabilityCalendar/>
-  },  
+    path: "/calendario/cante",
+    element: <CanteAvailabilityCalendar />,
+  },
   {
-    path: '/calendario/midia',
-    element: <MediaAvailabilityCalendar/>
-  },  
+    path: "/calendario/midia",
+    element: <MediaAvailabilityCalendar />,
+  },
   {
     loader() {
       if (!localStorage.getItem("token")) {
@@ -56,12 +56,12 @@ const router = createBrowserRouter([
         element: <EditSessionAttendance />,
       },
       {
-        path: '/calendario/cante/editar',
-        element: <EditCanteAvailabilityCalendar/>
+        path: "/calendario/cante/editar",
+        element: <EditCanteAvailabilityCalendar />,
       },
       {
-        path: '/calendario/midia/editar',
-        element: <EditMediaAvailabilityCalendar/>
+        path: "/calendario/midia/editar",
+        element: <EditMediaAvailabilityCalendar />,
       },
     ],
   },

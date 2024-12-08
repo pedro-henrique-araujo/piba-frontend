@@ -33,9 +33,7 @@ export class Calendar {
     );
   }
 
-  afterRefresh() {
-   
-  }
+  afterRefresh() {}
 
   loadDates() {
     this.firstDayOfMonth = new Date(this.dateToRender);

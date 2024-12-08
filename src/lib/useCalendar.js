@@ -7,7 +7,6 @@ import {
   getNextSaturdayBasedOn,
 } from "../utils/calendar";
 
-
 function useCalendar(getToday) {
   function refresh() {
     loadDatesToRender();
@@ -18,7 +17,7 @@ function useCalendar(getToday) {
     if (!currentMonth) {
       const today = getToday();
       if (today.getDate() >= 15) {
-        today.setMonth(today.getMonth() + 1)
+        today.setMonth(today.getMonth() + 1);
       }
       today.setDate(1);
       setCurrentMonth(today);
@@ -44,7 +43,7 @@ function useCalendar(getToday) {
     const newCalendarEndDate = getNextSaturdayBasedOn(newLastDayOfTheMonth);
     setFirstDayOfTheMonth(newFirstDayOfTheMonth);
     setLastDayOfTheMonth(newLastDayOfTheMonth);
-    setCalendarStartDate(newCalendarStartDate)
+    setCalendarStartDate(newCalendarStartDate);
     setCalendarEndDate(newCalendarEndDate);
     setDates(getDates(newCalendarStartDate, newCalendarEndDate));
   }
@@ -69,7 +68,7 @@ function useCalendar(getToday) {
   function year() {
     if (!currentMonth) return "";
     return currentMonth.getFullYear();
-  } 
+  }
 
   const [currentMonth, setCurrentMonth] = useState();
   const [dateToRender, setDateToRender] = useState();
@@ -91,8 +90,8 @@ function useCalendar(getToday) {
     next,
     previous,
     nameOfMonth,
-    year
-  }
+    year,
+  };
 }
 
 export default useCalendar;
