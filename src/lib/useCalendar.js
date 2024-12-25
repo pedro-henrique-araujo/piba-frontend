@@ -8,41 +8,28 @@ import {
 } from "../utils/calendar";
 
 function useCalendar(getToday) {
-  function refresh() {
-    loadDatesToRender();
-    loadDates();
+  function refresh(date) {
+    loadDates(loadDatesToRender(date));
   }
 
-  function loadDatesToRender() {
-    if (!currentMonth) {
+  function loadDatesToRender(date) {
+    if (!date) {
       const today = getToday();
       if (today.getDate() >= 15) {
         today.setMonth(today.getMonth() + 1);
       }
       today.setDate(1);
       setCurrentMonth(today);
-      loadDateToRender(today);
-      return;
+      return today;
     }
-    loadDateToRender(currentMonth);
+    return date;
   }
 
-  function loadDateToRender(month) {
-    const date = new Date(
-      month.getFullYear(),
-      month.getMonth(),
-      month.getDate(),
-    );
-    setDateToRender(date);
-  }
-
-  function loadDates() {
-    const newFirstDayOfTheMonth = new Date(dateToRender);
+  function loadDates(date) {
+    const newFirstDayOfTheMonth = new Date(date);
     const newLastDayOfTheMonth = getLastDayOfMonth(newFirstDayOfTheMonth);
     const newCalendarStartDate = getLastSundayBasedOn(newFirstDayOfTheMonth);
     const newCalendarEndDate = getNextSaturdayBasedOn(newLastDayOfTheMonth);
-    setFirstDayOfTheMonth(newFirstDayOfTheMonth);
-    setLastDayOfTheMonth(newLastDayOfTheMonth);
     setCalendarStartDate(newCalendarStartDate);
     setCalendarEndDate(newCalendarEndDate);
     setDates(getDates(newCalendarStartDate, newCalendarEndDate));
@@ -51,13 +38,13 @@ function useCalendar(getToday) {
   function next() {
     currentMonth.setMonth(currentMonth.getMonth() + 1);
     setCurrentMonth(new Date(currentMonth));
-    refresh();
+    refresh(currentMonth);
   }
 
   function previous() {
     currentMonth.setMonth(currentMonth.getMonth() - 1);
     setCurrentMonth(new Date(currentMonth));
-    refresh();
+    refresh(currentMonth);
   }
 
   function nameOfMonth() {
@@ -71,22 +58,15 @@ function useCalendar(getToday) {
   }
 
   const [currentMonth, setCurrentMonth] = useState();
-  const [dateToRender, setDateToRender] = useState();
   const [dates, setDates] = useState();
   const [calendarStartDate, setCalendarStartDate] = useState();
   const [calendarEndDate, setCalendarEndDate] = useState();
-  const [firstDayOfMonth, setFirstDayOfTheMonth] = useState();
-  const [lastDayOfMonth, setLastDayOfTheMonth] = useState();
 
-  useEffect(refresh, [currentMonth]);
   useEffect(refresh, []);
-
   return {
     dates,
     calendarStartDate,
     calendarEndDate,
-    firstDayOfMonth,
-    lastDayOfMonth,
     next,
     previous,
     nameOfMonth,
