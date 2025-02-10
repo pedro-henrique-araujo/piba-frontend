@@ -57,6 +57,11 @@ function useCalendar(getToday) {
     return currentMonth.getFullYear();
   }
 
+  function getMonth() {
+    if (!currentMonth) return "";
+    return currentMonth.getMonth();
+  }
+
   const [currentMonth, setCurrentMonth] = useState();
   const [dates, setDates] = useState();
   const [calendarStartDate, setCalendarStartDate] = useState();
@@ -70,6 +75,7 @@ function useCalendar(getToday) {
     next,
     previous,
     nameOfMonth,
+    getMonth,
     year,
   };
 }

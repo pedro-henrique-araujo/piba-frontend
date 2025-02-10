@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useCalendar from "../../lib/useCalendar";
 import { useApi } from "../../shared/useApi";
 import { dateOnlyEquals } from "../../utils/calendar";
-import PibAvailabilityDropdown from "../../components/PibAvailabilityDropdown";
+import moment from "moment";
 import PibCalendarWeekdays from "../../components/PibCalendarWeekdays";
 import PibCalendarMonthControl from "../../components/PibCalendarMonthControl";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function EditCanteAvailabilityCalendar() {
   async function save() {
     const payload = {
-      availabilities: selectedDates,
+      availabilities: selectedDates.map((d) => moment(d).format("yyyy-MM-DD")),
       dateRange: {
         start: calendar.calendarStartDate,
         end: calendar.calendarEndDate,
@@ -63,7 +63,11 @@ function EditCanteAvailabilityCalendar() {
   const api = useApi();
   const navigate = useNavigate();
   const [selectedDates, setSelectedDates] = useState([]);
-  const calendar = useCalendar(() => new Date());
+  const calendar = useCalendar(() => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date;
+  });
 
   useEffect(() => {
     loadAvailabilities();
@@ -91,11 +95,21 @@ function EditCanteAvailabilityCalendar() {
               <div className="flex items-center justify-center">
                 {isSelected(date) ? (
                   <div className="rounded-full w-8 h-8 flex items-center justify-center bg-green-200 group-hover:bg-green-300">
-                    <div>{date.getDate()}</div>
+                    <div className="font-bold">{date.getDate()}</div>
                   </div>
                 ) : (
                   <div className="rounded-full w-8 h-8 flex items-center justify-center">
-                    <div>{date.getDate()}</div>
+                    {date.getMonth() === calendar.getMonth() ? (
+                      [0, 3, 6].includes(date.getDay()) ? (
+                        <div className="text-black font-bold">
+                          {date.getDate()}
+                        </div>
+                      ) : (
+                        <div className="text-gray-600">{date.getDate()}</div>
+                      )
+                    ) : (
+                      <div className="text-gray-300">{date.getDate()}</div>
+                    )}
                   </div>
                 )}
               </div>
