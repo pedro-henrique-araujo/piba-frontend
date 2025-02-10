@@ -8,7 +8,6 @@ import {
 } from "../utils/calendar";
 
 function useCalendar(getToday) {
-  console.log(getToday);
   function refresh(date) {
     loadDates(loadDatesToRender(date));
   }
