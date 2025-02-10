@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import useCalendar from "../../lib/useCalendar";
 import { useApi } from "../../shared/useApi";
 import { dateOnlyEquals } from "../../utils/calendar";
-import PibAvailabilityDropdown from "../../components/PibAvailabilityDropdown";
 import PibCalendarWeekdays from "../../components/PibCalendarWeekdays";
 import PibCalendarMonthControl from "../../components/PibCalendarMonthControl";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
 
 function EditMediaAvailabilityCalendar() {
   async function save() {
     const payload = {
-      availabilities: selectedDates,
+      availabilities: selectedDates.map((d) => moment(d).format("yyyy-MM-DD")),
       dateRange: {
         start: calendar.calendarStartDate,
         end: calendar.calendarEndDate,
