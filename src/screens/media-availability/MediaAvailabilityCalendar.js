@@ -57,7 +57,12 @@ function MediaAvailabilityCalendar() {
   const api = useApi();
   const [availabilities, setAvailabilities] = useState([]);
   const navigate = useNavigate();
-  const calendar = useCalendar(() => new Date());
+  const calendar = useCalendar(() => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    console.log(date);
+    return date;
+  });
   const { token, setToken } = useAuth();
 
   useEffect(() => {
@@ -94,7 +99,17 @@ function MediaAvailabilityCalendar() {
             <div key={date} className="h-10 p-1 cursor-default group w-[14%]">
               <div className="flex items-center justify-center relative">
                 <div className="group-hover:bg-gray-200 rounded-full w-8 h-8 relative overflow-visible flex items-center justify-center">
-                  <div>{date.getDate()}</div>
+                  {date.getMonth() === calendar.getMonth() ? (
+                    [0, 3, 6].includes(date.getDay()) ? (
+                      <div className="text-black font-bold">
+                        {date.getDate()}
+                      </div>
+                    ) : (
+                      <div className="text-gray-600">{date.getDate()}</div>
+                    )
+                  ) : (
+                    <div className="text-gray-300">{date.getDate()}</div>
+                  )}
 
                   {availabilitiesForDate.length > 0 ? (
                     <div className="bg-green-400 rounded-full text-[8px] text-white w-3 h-3 absolute top-0 right-0">
