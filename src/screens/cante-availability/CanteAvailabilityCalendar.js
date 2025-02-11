@@ -33,6 +33,7 @@ function CanteAvailabilityCalendar() {
   }
 
   async function loadAvailabilities() {
+    setIsLoading(true);
     if (!calendar.calendarStartDate || !calendar.calendarEndDate) return;
     if (
       calendar.calendarStartDate == "Invalid Date" ||
@@ -44,6 +45,7 @@ function CanteAvailabilityCalendar() {
     const queryParams = `?start=${start}&end=${end}`;
     const { data } = await api.get("cante-availability" + queryParams);
     setAvailabilities(data);
+    setIsLoading(false);
   }
 
   function formatForHttpParam(date) {
@@ -56,6 +58,7 @@ function CanteAvailabilityCalendar() {
 
   const api = useApi();
   const [availabilities, setAvailabilities] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { token, setToken } = useAuth();
   const navigate = useNavigate();
   const calendar = useCalendar(() => {
@@ -84,50 +87,63 @@ function CanteAvailabilityCalendar() {
           />
         </div>
       )}
+      {isLoading ? (
+        <div className="w-full flex flex-col align-center items-center my-32">
+          <span class="relative flex size-10">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-300 opacity-75"></span>
+            <span class="relative inline-flex size-10 rounded-full bg-green-300"></span>
+          </span>
+        </div>
+      ) : (
+        <>
+          <PibCalendarMonthControl
+            onPrevious={() => calendar.previous()}
+            onNext={calendar.next}
+            nameOfMonth={calendar.nameOfMonth()}
+            year={calendar.year()}
+          />
+          <PibCalendarWeekdays />
+          <div className="flex flex-wrap mt-3 text-sm font-medium text-center text-primary-pressed">
+            {calendar.dates?.map((date) => {
+              const availabilitiesForDate = getAvailabilitiesFor(date);
+              return (
+                <div
+                  key={date}
+                  className="h-10 p-1 cursor-default group w-[14%]"
+                >
+                  <div className="flex items-center justify-center relative">
+                    <div className="group-hover:bg-gray-200 rounded-full w-8 h-8 relative overflow-visible flex items-center justify-center">
+                      {date.getMonth() === calendar.getMonth() ? (
+                        [0, 3, 6].includes(date.getDay()) ? (
+                          <div className="text-black font-bold">
+                            {date.getDate()}
+                          </div>
+                        ) : (
+                          <div className="text-gray-600">{date.getDate()}</div>
+                        )
+                      ) : (
+                        <div className="text-gray-300">{date.getDate()}</div>
+                      )}
 
-      <PibCalendarMonthControl
-        onPrevious={() => calendar.previous()}
-        onNext={calendar.next}
-        nameOfMonth={calendar.nameOfMonth()}
-        year={calendar.year()}
-      />
-      <PibCalendarWeekdays />
-      <div className="flex flex-wrap mt-3 text-sm font-medium text-center text-primary-pressed">
-        {calendar.dates?.map((date) => {
-          const availabilitiesForDate = getAvailabilitiesFor(date);
-          return (
-            <div key={date} className="h-10 p-1 cursor-default group w-[14%]">
-              <div className="flex items-center justify-center relative">
-                <div className="group-hover:bg-gray-200 rounded-full w-8 h-8 relative overflow-visible flex items-center justify-center">
-                  {date.getMonth() === calendar.getMonth() ? (
-                    [0, 3, 6].includes(date.getDay()) ? (
-                      <div className="text-black font-bold">
-                        {date.getDate()}
-                      </div>
-                    ) : (
-                      <div className="text-gray-600">{date.getDate()}</div>
-                    )
-                  ) : (
-                    <div className="text-gray-300">{date.getDate()}</div>
-                  )}
-
-                  {availabilitiesForDate.length > 0 ? (
-                    <div className="bg-green-400 rounded-full text-[8px] text-white w-3 h-3 absolute top-0 right-0">
-                      <div className="flex items-center justify-center h-full">
-                        <div>{availabilitiesForDate.length}</div>
-                      </div>
+                      {availabilitiesForDate.length > 0 ? (
+                        <div className="bg-green-400 rounded-full text-[8px] text-white w-3 h-3 absolute top-0 right-0">
+                          <div className="flex items-center justify-center h-full">
+                            <div>{availabilitiesForDate.length}</div>
+                          </div>
+                        </div>
+                      ) : null}
+                      <PibAvailabilityDropdown
+                        date={date}
+                        availabilities={availabilitiesForDate}
+                      />
                     </div>
-                  ) : null}
-                  <PibAvailabilityDropdown
-                    date={date}
-                    availabilities={availabilitiesForDate}
-                  />
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }

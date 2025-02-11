@@ -7,6 +7,7 @@ import PibCalendarWeekdays from "../../components/PibCalendarWeekdays";
 import PibCalendarMonthControl from "../../components/PibCalendarMonthControl";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthProvider";
 
 function EditCanteAvailabilityCalendar() {
   async function save() {
@@ -36,6 +37,7 @@ function EditCanteAvailabilityCalendar() {
   }
 
   async function loadAvailabilities() {
+    setIsLoading(true);
     if (!calendar.calendarStartDate || !calendar.calendarEndDate) return;
     if (
       calendar.calendarStartDate == "Invalid Date" ||
@@ -45,8 +47,9 @@ function EditCanteAvailabilityCalendar() {
     const start = formatForHttpParam(calendar.calendarStartDate);
     const end = formatForHttpParam(calendar.calendarEndDate);
     const queryParams = `?start=${start}&end=${end}`;
-    const { data } = await api.get("cante-availability" + queryParams);
+    const { data } = await api.get("cante-availability/mine" + queryParams);
     setSelectedDates(data.map((i) => new Date(i.date)));
+    setIsLoading(false);
   }
 
   function formatForHttpParam(date) {
@@ -63,6 +66,7 @@ function EditCanteAvailabilityCalendar() {
   const api = useApi();
   const navigate = useNavigate();
   const [selectedDates, setSelectedDates] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const calendar = useCalendar(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
@@ -78,45 +82,58 @@ function EditCanteAvailabilityCalendar() {
       <div className="mb-8 w-20">
         <PibPrimaryButton onClick={save}>Salvar</PibPrimaryButton>
       </div>
-      <PibCalendarMonthControl
-        onPrevious={() => calendar.previous()}
-        onNext={calendar.next}
-        nameOfMonth={calendar.nameOfMonth()}
-        year={calendar.year()}
-      />
-      <PibCalendarWeekdays />
-      <div className="flex flex-wrap mt-3 text-sm font-medium text-center text-primary-pressed">
-        {calendar.dates?.map((date) => {
-          return (
-            <div
-              onClick={() => toggle(date)}
-              className="h-10 p-1 cursor-pointer group w-[14%]"
-            >
-              <div className="flex items-center justify-center">
-                {isSelected(date) ? (
-                  <div className="rounded-full w-8 h-8 flex items-center justify-center bg-green-200 group-hover:bg-green-300">
-                    <div className="font-bold">{date.getDate()}</div>
-                  </div>
-                ) : (
-                  <div className="rounded-full w-8 h-8 flex items-center justify-center">
-                    {date.getMonth() === calendar.getMonth() ? (
-                      [0, 3, 6].includes(date.getDay()) ? (
-                        <div className="text-black font-bold">
-                          {date.getDate()}
-                        </div>
-                      ) : (
-                        <div className="text-gray-600">{date.getDate()}</div>
-                      )
+      {isLoading ? (
+        <div className="w-full flex flex-col align-center items-center my-32">
+          <span class="relative flex size-10">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-300 opacity-75"></span>
+            <span class="relative inline-flex size-10 rounded-full bg-green-300"></span>
+          </span>
+        </div>
+      ) : (
+        <>
+          <PibCalendarMonthControl
+            onPrevious={() => calendar.previous()}
+            onNext={calendar.next}
+            nameOfMonth={calendar.nameOfMonth()}
+            year={calendar.year()}
+          />
+          <PibCalendarWeekdays />
+          <div className="flex flex-wrap mt-3 text-sm font-medium text-center text-primary-pressed">
+            {calendar.dates?.map((date) => {
+              return (
+                <div
+                  onClick={() => toggle(date)}
+                  className="h-10 p-1 cursor-pointer group w-[14%]"
+                >
+                  <div className="flex items-center justify-center">
+                    {isSelected(date) ? (
+                      <div className="rounded-full w-8 h-8 flex items-center justify-center bg-green-200 group-hover:bg-green-300">
+                        <div className="font-bold">{date.getDate()}</div>
+                      </div>
                     ) : (
-                      <div className="text-gray-300">{date.getDate()}</div>
+                      <div className="rounded-full w-8 h-8 flex items-center justify-center">
+                        {date.getMonth() === calendar.getMonth() ? (
+                          [0, 3, 6].includes(date.getDay()) ? (
+                            <div className="text-black font-bold">
+                              {date.getDate()}
+                            </div>
+                          ) : (
+                            <div className="text-gray-600">
+                              {date.getDate()}
+                            </div>
+                          )
+                        ) : (
+                          <div className="text-gray-300">{date.getDate()}</div>
+                        )}
+                      </div>
                     )}
                   </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }

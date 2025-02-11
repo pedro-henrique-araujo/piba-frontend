@@ -9,14 +9,24 @@ function PibAvailabilityDropdown({ date, availabilities }) {
 
   return (
     <div className={className + horizontalPositionClass}>
-      {availabilities.map((availability) => (
-        <div key={availability.id} className="flex items-center gap-2">
-          <div>
-            <PibProfilePhoto src={availability.user.photoUrl} />
+      {availabilities
+        .sort((previous, next) => {
+          const previousUser = previous.user;
+          const nextUser = next.user;
+          if (previousUser.name < nextUser.name) return -1;
+          if (previousUser.name > nextUser.name) return 1;
+          return 0;
+        })
+        .map((availability) => (
+          <div key={availability.id} className="flex items-center gap-2">
+            <div>
+              <PibProfilePhoto src={availability.user.photoUrl} />
+            </div>
+            <div className="text-[10px] sm:text-sm">
+              {availability.user.name}
+            </div>
           </div>
-          <div className="text-[10px] sm:text-sm">{availability.user.name}</div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 }
