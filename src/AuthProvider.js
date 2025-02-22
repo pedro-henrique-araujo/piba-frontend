@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
     }
     localStorage.removeItem("token");
   }
-
+  
   return (
     <AuthContext.Provider value={{ token, setToken: updateToken }}>
       {children}

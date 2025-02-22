@@ -9,6 +9,7 @@ import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { useNavigate } from "react-router-dom";
 import PibGoogleLogin from "../../components/PibGoogleLogin";
 import { useAuth } from "../../AuthProvider";
+import useValidateToken from "../../shared/useValidateToken";
 
 function CanteAvailabilityCalendar() {
   async function handleLoginSuccess(response) {
@@ -60,12 +61,17 @@ function CanteAvailabilityCalendar() {
   const [availabilities, setAvailabilities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { token, setToken } = useAuth();
+  const validateToken = useValidateToken();
   const navigate = useNavigate();
   const calendar = useCalendar(() => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
     return date;
   });
+
+  useEffect(() => {
+    validateToken();
+  }, []);
 
   useEffect(() => {
     loadAvailabilities();

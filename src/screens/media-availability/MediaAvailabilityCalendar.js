@@ -9,6 +9,7 @@ import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { useNavigate } from "react-router-dom";
 import PibGoogleLogin from "../../components/PibGoogleLogin";
 import { useAuth } from "../../AuthProvider";
+import useValidateToken from "../../shared/useValidateToken";
 
 function MediaAvailabilityCalendar() {
   async function handleLoginSuccess(response) {
@@ -67,6 +68,11 @@ function MediaAvailabilityCalendar() {
     return date;
   });
   const { token, setToken } = useAuth();
+  const validateToken = useValidateToken();
+
+  useEffect(() => {
+    validateToken();
+  }, []);
 
   useEffect(() => {
     loadAvailabilities();
