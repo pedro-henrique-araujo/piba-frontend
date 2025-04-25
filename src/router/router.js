@@ -9,6 +9,10 @@ import { EditSessionAttendance } from "../screens/session-attendance/EditSession
 import ListSessionAttendance from "../screens/session-attendance/ListSessionAttendance";
 import NewSessionAttendance from "../screens/session-attendance/NewSessionAttendance";
 import { createBrowserRouter, redirect } from "react-router-dom";
+import ListSong from "../screens/song/ListSong";
+import ViewSong from "../screens/song/ViewSong";
+import ListUser from "../screens/user/ListUser";
+import EditUser from "../screens/user/EditUser";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +66,22 @@ const router = createBrowserRouter([
       {
         path: "/calendario/midia/editar",
         element: <EditMediaAvailabilityCalendar />,
+      },
+      {
+        path: "/musica",
+        element: <ListSong />,
+      },
+      {
+        path: "/musica/:id",
+        element: <ViewSong />,
+      },
+      {
+        path: "/usuario",
+        element: <ListUser />,
+      },
+      {
+        path: "/usuario/:id",
+        element: <EditUser />,
       },
     ],
   },
