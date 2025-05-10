@@ -5,6 +5,7 @@ import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { Link, useNavigate } from "react-router-dom";
 import PibPagination from "../../components/PibPagination";
 import infoLinkSvg from "../../assets/info-link.svg";
+import PibBlankButton from "../../components/PibBlankButton";
 
 function ListSessionAttendance() {
   async function loadSessionAttendances() {
@@ -31,6 +32,9 @@ function ListSessionAttendance() {
 
   return (
     <div className="mx-auto p-5 max-w-xl">
+      <div className="mb-5 w-20">
+        <PibBlankButton onClick={() => navigate("/menu")}>Menu</PibBlankButton>
+      </div>
       <div className="mb-5 w-20">
         <PibPrimaryButton onClick={() => navigate("/frequencia/sessao/nova")}>
           Nova
