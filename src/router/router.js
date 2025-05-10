@@ -13,6 +13,7 @@ import ListSong from "../screens/song/ListSong";
 import ViewSong from "../screens/song/ViewSong";
 import ListUser from "../screens/user/ListUser";
 import EditUser from "../screens/user/EditUser";
+import Menu from "../screens/menu/Menu";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <NewSchoolAttendance />,
+  },
+  {
+    path: "/menu",
+    element: <Menu />,
   },
   {
     path: "/frequencia/eb",

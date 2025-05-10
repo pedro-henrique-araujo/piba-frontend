@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import infoLinkSvg from "../../assets/info-link.svg";
 import PibTable from "../../components/PibTable";
+import { useNavigate } from "react-router-dom";
+import PibBlankButton from "../../components/PibBlankButton";
 
 function ListSong() {
+  const navigate = useNavigate();
   return (
     <div className="mx-auto p-5 max-w-xl">
+      <div className="mb-5 w-20">
+        <PibBlankButton onClick={() => navigate("/menu")}>Menu</PibBlankButton>
+      </div>
       <PibTable
         title="Músicas"
         path="song"
