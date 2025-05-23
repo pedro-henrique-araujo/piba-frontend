@@ -6,6 +6,7 @@ function usePagination(path) {
   const [pageSize] = useState(10);
   const [records, setRecords] = useState([]);
   const [totalNumberOfRecords, setTotalNumberOfRecords] = useState(0);
+  const [loading, setLoading] = useState(true);
   const api = useApi();
 
   function switchToNextPage() {
@@ -21,12 +22,18 @@ function usePagination(path) {
   }
 
   async function loadData() {
+    const timeoutId = setTimeout(() => {
+      setLoading(true);
+    }, 500);
+
     const skip = (currentPage - 1) * pageSize;
     const {
       data: { total, records },
     } = await api.get(`/${path}?skip=${skip}&take=${pageSize}`);
     setRecords(records);
     setTotalNumberOfRecords(total);
+    clearTimeout(timeoutId);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -38,6 +45,7 @@ function usePagination(path) {
     totalNumberOfRecords,
     currentPage,
     pageSize,
+    loading,
     switchToNextPage,
     switchToPreviousPage,
     loadData,

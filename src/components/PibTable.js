@@ -2,10 +2,17 @@ import PibPagination from "./PibPagination";
 import { Table, DataTable } from "@primer/react/drafts";
 import usePagination from "../shared/usePagination";
 
-import { Link } from "react-router-dom";
+import PibLoading from "./PibLoading";
 
 function PibTable({ path, columns, title }) {
   const pagination = usePagination(path);
+
+  if (pagination.loading)
+    return (
+      <div className="flex justify-center">
+        <PibLoading />
+      </div>
+    );
 
   return (
     <>
@@ -13,7 +20,12 @@ function PibTable({ path, columns, title }) {
         <Table.Title>
           <div className="text-lg">{title}</div>
         </Table.Title>
-        <DataTable columns={columns} data={pagination.records} />
+        <br />
+        {pagination?.records?.length === 0 ? (
+          <div className="mt-5">Ainda não há registros para exibir</div>
+        ) : (
+          <DataTable columns={columns} data={pagination.records} />
+        )}
       </Table.Container>
       <div className="mt-10">
         <PibPagination
