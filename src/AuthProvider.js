@@ -15,6 +15,11 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("token");
   }
 
+  function clearToken() {
+    setToken(null);
+    localStorage.removeItem("token");
+  }
+
   function includesAnyRoles(...rolesToCheck) {
     if (!token) return false;
     const decodedToken = jwtDecode(token);
@@ -31,7 +36,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ token, setToken: updateToken, includesAnyRoles }}
+      value={{ token, setToken: updateToken, includesAnyRoles, clearToken }}
     >
       {children}
     </AuthContext.Provider>

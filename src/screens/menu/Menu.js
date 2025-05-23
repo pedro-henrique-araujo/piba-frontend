@@ -6,11 +6,16 @@ import { useAuth } from "../../AuthProvider";
 const Menu = () => {
   const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
+  function handleNavigation(path) {
     navigate(path);
-  };
+  }
 
-  const { includesAnyRoles } = useAuth();
+  function logOut() {
+    clearToken();
+    navigate("/login");
+  }
+
+  const { includesAnyRoles, clearToken } = useAuth();
 
   return (
     <div className="mx-auto p-5 max-w-xl">
@@ -60,6 +65,10 @@ const Menu = () => {
             </PibPrimaryButton>
           </div>
         )}
+
+        <div className="mb-5">
+          <PibPrimaryButton onClick={() => logOut()}>Sair</PibPrimaryButton>
+        </div>
       </div>
     </div>
   );

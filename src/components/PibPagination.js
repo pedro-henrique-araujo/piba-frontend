@@ -18,11 +18,12 @@ function PibPagination({
         <div>Anterior</div>
       </button>
       <div>
-        Página {currentPage} de {totalNumberOfPages}
+        Página {Math.min(currentPage, totalNumberOfPages)} de{" "}
+        {totalNumberOfPages}
       </div>
       <button
         className="text-link disabled:opacity-50 flex items-center"
-        disabled={currentPage === totalNumberOfPages}
+        disabled={currentPage >= totalNumberOfPages}
         onClick={switchToNextPage}
       >
         <div>Próxima</div>
