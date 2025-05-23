@@ -12,7 +12,7 @@ function Login() {
     });
 
     setToken(data.token);
-    navigate("/frequencia/sessao");
+    navigate("/menu");
   }
 
   function handleLoginError() {
