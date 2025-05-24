@@ -14,6 +14,8 @@ import ViewSong from "../screens/song/ViewSong";
 import ListUser from "../screens/user/ListUser";
 import EditUser from "../screens/user/EditUser";
 import Menu from "../screens/menu/Menu";
+import NewSong from "../screens/song/NewSong";
+import EditSong from "../screens/song/EditSong";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,14 @@ const router = createBrowserRouter([
       {
         path: "/musica/:id",
         element: <ViewSong />,
+      },
+      {
+        path: "/musica/nova",
+        element: <NewSong />,
+      },
+      {
+        path: "/musica/editar/:id",
+        element: <EditSong />,
       },
       {
         path: "/usuario",
