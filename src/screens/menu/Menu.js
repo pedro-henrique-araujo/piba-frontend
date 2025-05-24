@@ -41,7 +41,7 @@ const Menu = () => {
           </div>
         )}
 
-        {includesAnyRoles("cante", "media") && (
+        {includesAnyRoles("admin") && (
           <div className="mb-5">
             <PibPrimaryButton onClick={() => handleNavigation("/musica")}>
               Músicas
