@@ -102,20 +102,19 @@ function CanteAvailabilityCalendar() {
   if (!token) {
     return (
       <div className="shadow-lg rounded-xl bg-white p-5 mt-2 mx-auto p-5 max-w-xl">
-         <div className="my-8 text-xl text-center font-semibold">
-            Faça login para ver o calendário
-          </div>
+        <div className="my-8 text-xl text-center font-semibold">
+          Faça login para ver o calendário
+        </div>
 
         <div className="mb-5 flex justify-center">
           <PibGoogleLogin
             onSuccess={handleLoginSuccess}
             onError={handleLoginError}
           />
-        </div>        
+        </div>
       </div>
     );
   }
-  
 
   const AdminView = calendar.dates?.map((date) => {
     const availabilitiesForDate = getAvailabilitiesFor(date);
@@ -179,7 +178,7 @@ function CanteAvailabilityCalendar() {
   return (
     <div className="shadow-lg rounded-xl bg-white p-5 mt-2 mx-auto p-5 max-w-xl">
       <div className="w-12">
-        <PibBlankButton onClick={()=> clearToken()}>Sair</PibBlankButton>
+        <PibBlankButton onClick={() => clearToken()}>Sair</PibBlankButton>
       </div>
       {isAdmin() ? (
         <div className="mb-8 w-52 mx-auto">
@@ -189,15 +188,13 @@ function CanteAvailabilityCalendar() {
         </div>
       ) : (
         <>
-         <div className="mb-8 w-32 mx-auto">
-          <PibPrimaryButton onClick={edit}>Editar</PibPrimaryButton>
-        
-        </div>
+          <div className="mb-8 w-32 mx-auto">
+            <PibPrimaryButton onClick={edit}>Editar</PibPrimaryButton>
+          </div>
           <div className="mb-8 text-center font-semibold">
             Você está vendo apenas a sua disponibilidade
           </div>
         </>
-       
       )}
 
       {isLoading ? (
