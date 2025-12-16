@@ -7,7 +7,7 @@ import PibCalendarWeekdays from "../../components/PibCalendarWeekdays";
 import PibCalendarMonthControl from "../../components/PibCalendarMonthControl";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../AuthProvider";
+import PibLoading from "../../components/PibLoading";
 
 function EditCanteAvailabilityCalendar() {
   async function save() {
@@ -84,10 +84,7 @@ function EditCanteAvailabilityCalendar() {
       </div>
       {isLoading ? (
         <div className="w-full flex flex-col align-center items-center my-32">
-          <span class="relative flex size-10">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-300 opacity-75"></span>
-            <span class="relative inline-flex size-10 rounded-full bg-green-300"></span>
-          </span>
+          <PibLoading />
         </div>
       ) : (
         <>

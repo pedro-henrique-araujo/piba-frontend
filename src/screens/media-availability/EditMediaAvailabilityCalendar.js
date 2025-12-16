@@ -7,7 +7,6 @@ import PibCalendarMonthControl from "../../components/PibCalendarMonthControl";
 import PibPrimaryButton from "../../components/PibPrimaryButton";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import { useAuth } from "../../AuthProvider";
 import PibLoading from "../../components/PibLoading";
 
 function EditMediaAvailabilityCalendar() {

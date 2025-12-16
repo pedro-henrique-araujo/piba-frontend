@@ -9,6 +9,7 @@ function PibSelectPanel({
   label,
   title,
   placeholder,
+  isLoading = false,
 }) {
   function removeAccents(value) {
     return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -85,6 +86,7 @@ function PibSelectPanel({
             />
           </div>
           <PibSelectPanelSelector
+            isLoading={isLoading}
             selected={selected}
             items={filteredItems}
             onSelectedChange={handleSelectionClick}

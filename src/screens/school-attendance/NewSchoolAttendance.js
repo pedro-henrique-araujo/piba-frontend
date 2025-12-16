@@ -22,6 +22,7 @@ function NewSchoolAttendance() {
   }
 
   async function loadMemberOptions() {
+    setIsLoading(true);
     const { data } = await api.options("member");
     setMemberOptions(
       data
@@ -31,6 +32,7 @@ function NewSchoolAttendance() {
         }))
         .sort((a, b) => a.text.localeCompare(b.text)),
     );
+    setIsLoading(false);
   }
 
   function loadUserLocation() {
@@ -44,6 +46,7 @@ function NewSchoolAttendance() {
   const [memberOptions, setMemberOptions] = useState([]);
   const [isInvalid, setIsInvalid] = useState(true);
   const [isSending, setIsSending] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [userPosition, setUserPosition] = useState();
   const navigate = useNavigate();
   const api = useApi();
@@ -83,6 +86,7 @@ function NewSchoolAttendance() {
       <h1 className="font-bold text-2xl">Indicar Frequência</h1>
       <form>
         <PibSelectPanel
+          isLoading={isLoading}
           label="Nome do membro"
           title="Selecionar membro"
           placeholder="Pesquisar..."
