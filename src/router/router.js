@@ -16,6 +16,8 @@ import EditUser from "../screens/user/EditUser";
 import Menu from "../screens/menu/Menu";
 import NewSong from "../screens/song/NewSong";
 import EditSong from "../screens/song/EditSong";
+import { Schedule } from "../screens/schedule";
+import { Choose } from "../screens/schedule/choose";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +100,10 @@ const router = createBrowserRouter([
         path: "/usuario/:id",
         element: <EditUser />,
       },
+      { path: "/schedule", element: <Schedule /> },
+      { path: "/schedule/:id", element: <Schedule /> },
+      { path: "/schedule/choose", element: <Choose /> },
+      { path: "/schedule/choose/:id", element: <Choose /> },
     ],
   },
 ]);

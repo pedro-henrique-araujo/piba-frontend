@@ -1,5 +1,5 @@
 const environmentBackendUrls = {
-  dev: "http://localhost:5218/",
+  dev: "https://localhost:44360/",
   prod: "https://piba.azurewebsites.net/",
 };
 
